@@ -36,15 +36,13 @@ type (
 	}
 
 	Env struct {
-		Debug           bool    `json:"debug" yaml:"debug"`
-		Secret          string  `json:"secret" yaml:"secret"`
-		HttpPort        int     `json:"http_port" yaml:"http_port"`
-		RpcPort         int     `json:"rpc_port" yaml:"rpc_port"`
-		ApiVersion      string  `json:"api_version" yaml:"api_version"`
-		Service         Service `json:"service" yaml:"service"`
-		Db              Db      `json:"database" yaml:"database"`
-		RequestIDHeader string  `json:"request_id_header" yaml:"request_id_header"`
-		CacheLifetime   int     `json:"cache_lifetime" yaml:"cache_lifetime"`
-		User            string
+		Debug         bool    `json:"debug" yaml:"debug"`
+		Secret        string  `json:"secret" yaml:"secret"`
+		HttpPort      int     `json:"http_port" yaml:"http_port"`
+		RpcPort       int     `json:"rpc_port" yaml:"rpc_port"`
+		Service       Service `json:"service" yaml:"service"`
+		Db            Db      `json:"database" yaml:"database"`
+		CacheLifetime int     `json:"cache_lifetime" yaml:"cache_lifetime"`
+		User          string
 	}
 )

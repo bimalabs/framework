@@ -33,14 +33,14 @@ func (g *GRpc) Run(servers []configs.Server) {
 	streams := make([]grpc.StreamServerInterceptor, 0, 2)
 	unaries := make([]grpc.UnaryServerInterceptor, 0, 2)
 
-	streams[0] = grpc_recovery.StreamServerInterceptor()
-	unaries[0] = grpc_recovery.UnaryServerInterceptor()
+	streams = append(streams, grpc_recovery.StreamServerInterceptor())
+	unaries = append(unaries, grpc_recovery.UnaryServerInterceptor())
 	if g.Debug {
 		options := []grpc_logrus.Option{
 			grpc_logrus.WithLevels(grpc_logrus.DefaultCodeToLevel),
 		}
-		streams[1] = grpc_logrus.StreamServerInterceptor(logrus.NewEntry(loggers.Logger.Engine), options...)
-		unaries[1] = grpc_logrus.UnaryServerInterceptor(logrus.NewEntry(loggers.Logger.Engine), options...)
+		streams = append(streams, grpc_logrus.StreamServerInterceptor(logrus.NewEntry(loggers.Logger.Engine), options...))
+		unaries = append(unaries, grpc_logrus.UnaryServerInterceptor(logrus.NewEntry(loggers.Logger.Engine), options...))
 	}
 
 	gRpc := grpc.NewServer(
