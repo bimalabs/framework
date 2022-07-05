@@ -1,7 +1,5 @@
 # Bima Framework
 
-This repository contain only the framework, you can refer to [skeleton](https://github.com/KejawenLab/skeleton) for implementation
-
 Bima Framework utilize [gRPC Gateway](https://grpc-ecosystem.github.io/grpc-gateway) to make REST easier and added some features for productivity.
 
 ## Features
