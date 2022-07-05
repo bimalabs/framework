@@ -3,10 +3,10 @@ package brokers
 import (
 	"context"
 
-	"github.com/KejawenLab/bima/v4/messengers"
 	"github.com/ThreeDotsLabs/watermill"
 	"github.com/ThreeDotsLabs/watermill-amqp/pkg/amqp"
 	"github.com/ThreeDotsLabs/watermill/message"
+	"github.com/bimalabs/framework/v4/messengers"
 )
 
 type Amqp struct {

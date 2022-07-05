@@ -7,9 +7,9 @@ import (
 
 	"github.com/goccy/go-json"
 
-	"github.com/KejawenLab/bima/v4"
-	"github.com/KejawenLab/bima/v4/events"
-	"github.com/KejawenLab/bima/v4/models"
+	bima "github.com/bimalabs/framework/v4"
+	"github.com/bimalabs/framework/v4/events"
+	"github.com/bimalabs/framework/v4/models"
 	"github.com/olivere/elastic/v7"
 )
 

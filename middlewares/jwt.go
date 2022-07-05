@@ -6,9 +6,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/KejawenLab/bima/v4/configs"
-	"github.com/KejawenLab/bima/v4/loggers"
-	"github.com/KejawenLab/bima/v4/utils"
+	"github.com/bimalabs/framework/v4/configs"
+	"github.com/bimalabs/framework/v4/loggers"
+	"github.com/bimalabs/framework/v4/utils"
 )
 
 type Jwt struct {

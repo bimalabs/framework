@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/KejawenLab/bima/v4/configs"
-	"github.com/KejawenLab/bima/v4/middlewares"
-	"github.com/KejawenLab/bima/v4/routers"
+	"github.com/bimalabs/framework/v4/configs"
+	"github.com/bimalabs/framework/v4/middlewares"
+	"github.com/bimalabs/framework/v4/routers"
 	"google.golang.org/grpc"
 )
 

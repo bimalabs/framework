@@ -6,9 +6,9 @@ import (
 
 	"github.com/goccy/go-json"
 
-	"github.com/KejawenLab/bima/v4/events"
-	"github.com/KejawenLab/bima/v4/loggers"
-	"github.com/KejawenLab/bima/v4/paginations"
+	"github.com/bimalabs/framework/v4/events"
+	"github.com/bimalabs/framework/v4/loggers"
+	"github.com/bimalabs/framework/v4/paginations"
 	"github.com/olivere/elastic/v7"
 	"github.com/vcraescu/go-paginator/v2"
 )

@@ -4,7 +4,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/KejawenLab/bima/v4/configs"
+	"github.com/bimalabs/framework/v4/configs"
 )
 
 type (

@@ -8,8 +8,8 @@ import (
 
 	"github.com/goccy/go-json"
 
-	"github.com/KejawenLab/bima/v4"
-	"github.com/KejawenLab/bima/v4/middlewares"
+	bima "github.com/bimalabs/framework/v4"
+	"github.com/bimalabs/framework/v4/middlewares"
 	"google.golang.org/grpc"
 )
 

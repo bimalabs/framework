@@ -5,8 +5,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/KejawenLab/bima/v4/configs"
-	mocks "github.com/KejawenLab/bima/v4/mocks/configs"
+	"github.com/bimalabs/framework/v4/configs"
+	mocks "github.com/bimalabs/framework/v4/mocks/configs"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"

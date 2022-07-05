@@ -3,7 +3,7 @@ package paginations
 import (
 	"strings"
 
-	"github.com/KejawenLab/bima/v4/events"
+	"github.com/bimalabs/framework/v4/events"
 )
 
 type GormFilter struct {

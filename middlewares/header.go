@@ -3,7 +3,7 @@ package middlewares
 import (
 	"net/http"
 
-	"github.com/KejawenLab/bima/v4"
+	bima "github.com/bimalabs/framework/v4"
 )
 
 type Header struct {

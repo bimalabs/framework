@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/KejawenLab/bima/v4/loggers"
+	"github.com/bimalabs/framework/v4/loggers"
 	"github.com/fatih/color"
 
 	"github.com/CAFxX/httpcompression"

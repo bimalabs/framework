@@ -3,7 +3,7 @@ package configs
 import (
 	"context"
 
-	"github.com/KejawenLab/bima/v4/messengers"
+	"github.com/bimalabs/framework/v4/messengers"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/olivere/elastic/v7"
 	"google.golang.org/grpc"

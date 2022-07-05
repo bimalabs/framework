@@ -1,8 +1,8 @@
 package interfaces
 
 import (
-	"github.com/KejawenLab/bima/v4/configs"
-	"github.com/KejawenLab/bima/v4/messengers"
+	"github.com/bimalabs/framework/v4/configs"
+	"github.com/bimalabs/framework/v4/messengers"
 )
 
 type Consumer struct {

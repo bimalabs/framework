@@ -1,4 +1,4 @@
-module github.com/KejawenLab/bima/v4
+module github.com/bimalabs/framework/v4
 
 go 1.16
 

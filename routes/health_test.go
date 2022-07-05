@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/KejawenLab/bima/v4/loggers"
+	"github.com/bimalabs/framework/v4/loggers"
 	"github.com/stretchr/testify/assert"
 )
 

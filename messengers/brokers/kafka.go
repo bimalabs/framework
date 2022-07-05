@@ -3,10 +3,10 @@ package brokers
 import (
 	"context"
 
-	"github.com/KejawenLab/bima/v4/messengers"
 	"github.com/ThreeDotsLabs/watermill"
 	"github.com/ThreeDotsLabs/watermill-kafka/v2/pkg/kafka"
 	"github.com/ThreeDotsLabs/watermill/message"
+	"github.com/bimalabs/framework/v4/messengers"
 )
 
 type Kafka struct {

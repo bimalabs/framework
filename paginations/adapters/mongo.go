@@ -4,9 +4,9 @@ import (
 	"context"
 	"strings"
 
-	"github.com/KejawenLab/bima/v4/events"
-	"github.com/KejawenLab/bima/v4/loggers"
-	"github.com/KejawenLab/bima/v4/paginations"
+	"github.com/bimalabs/framework/v4/events"
+	"github.com/bimalabs/framework/v4/loggers"
+	"github.com/bimalabs/framework/v4/paginations"
 	"github.com/kamva/mgm/v3"
 	"github.com/vcraescu/go-paginator/v2"
 	"go.mongodb.org/mongo-driver/bson"

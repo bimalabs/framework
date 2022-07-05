@@ -10,7 +10,7 @@ import (
 
 	grpc "google.golang.org/grpc"
 
-	messengers "github.com/KejawenLab/bima/v4/messengers"
+	messengers "github.com/bimalabs/framework/v4/messengers"
 
 	mock "github.com/stretchr/testify/mock"
 

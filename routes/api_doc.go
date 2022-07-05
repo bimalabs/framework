@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/KejawenLab/bima/v4/middlewares"
+	"github.com/bimalabs/framework/v4/middlewares"
 	"google.golang.org/grpc"
 )
 

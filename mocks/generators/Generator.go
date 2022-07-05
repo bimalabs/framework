@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	generators "github.com/KejawenLab/bima/v4/generators"
+	generators "github.com/bimalabs/framework/v4/generators"
 	mock "github.com/stretchr/testify/mock"
 )
 

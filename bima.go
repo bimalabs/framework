@@ -1,11 +1,11 @@
 package bima
 
 import (
-	"github.com/KejawenLab/bima/v4/handlers"
-	"github.com/KejawenLab/bima/v4/messengers"
-	"github.com/KejawenLab/bima/v4/models"
-	"github.com/KejawenLab/bima/v4/paginations"
-	"github.com/KejawenLab/bima/v4/utils"
+	"github.com/bimalabs/framework/v4/handlers"
+	"github.com/bimalabs/framework/v4/messengers"
+	"github.com/bimalabs/framework/v4/models"
+	"github.com/bimalabs/framework/v4/paginations"
+	"github.com/bimalabs/framework/v4/utils"
 	"github.com/olivere/elastic/v7"
 	"gorm.io/gorm"
 )

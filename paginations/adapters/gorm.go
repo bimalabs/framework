@@ -4,10 +4,10 @@ import (
 	"context"
 	"strings"
 
-	"github.com/KejawenLab/bima/v4/configs"
-	"github.com/KejawenLab/bima/v4/events"
-	"github.com/KejawenLab/bima/v4/loggers"
-	"github.com/KejawenLab/bima/v4/paginations"
+	"github.com/bimalabs/framework/v4/configs"
+	"github.com/bimalabs/framework/v4/events"
+	"github.com/bimalabs/framework/v4/loggers"
+	"github.com/bimalabs/framework/v4/paginations"
 	"github.com/vcraescu/go-paginator/v2"
 	"gorm.io/gorm"
 )

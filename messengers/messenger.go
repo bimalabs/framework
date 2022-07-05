@@ -5,8 +5,8 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/KejawenLab/bima/v4/loggers"
 	"github.com/ThreeDotsLabs/watermill/message"
+	"github.com/bimalabs/framework/v4/loggers"
 )
 
 type (

@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/KejawenLab/bima/v4/loggers"
-	mocks "github.com/KejawenLab/bima/v4/mocks/messengers"
+	"github.com/bimalabs/framework/v4/loggers"
+	mocks "github.com/bimalabs/framework/v4/mocks/messengers"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
