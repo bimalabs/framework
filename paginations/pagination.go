@@ -73,6 +73,7 @@ func (p *Pagination) Paginate(adapter paginator.Adapter, results interface{}, to
 	pager := paginator.New(adapter, p.Limit)
 
 	pager.SetPage(p.Page)
+	p.Page, _ = pager.Page()
 
 	err := pager.Results(results)
 	if err != nil {

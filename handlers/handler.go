@@ -32,7 +32,7 @@ func (h *Handler) Paginate(paginator paginations.Pagination, result interface{})
 
 	var total = int(total64)
 	next := paginator.Page + 1
-	if paginator.Page*paginator.Limit > int(total) {
+	if paginator.Page*paginator.Limit >= int(total) {
 		next = -1
 	}
 
