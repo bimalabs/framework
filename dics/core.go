@@ -12,7 +12,6 @@ import (
 	"github.com/bimalabs/framework/v4/configs"
 	"github.com/bimalabs/framework/v4/drivers"
 	"github.com/bimalabs/framework/v4/events"
-	"github.com/bimalabs/framework/v4/generators"
 	"github.com/bimalabs/framework/v4/handlers"
 	"github.com/bimalabs/framework/v4/interfaces"
 	"github.com/bimalabs/framework/v4/loggers"
@@ -23,7 +22,6 @@ import (
 	"github.com/bimalabs/framework/v4/routes"
 	"github.com/bimalabs/framework/v4/utils"
 	"github.com/fatih/color"
-	"github.com/gertd/go-pluralize"
 	"github.com/kamva/mgm/v3"
 	"github.com/sarulabs/dingo/v4"
 	"go.mongodb.org/mongo-driver/event"
@@ -263,71 +261,5 @@ var Application = []dingo.Def{
 		Params: dingo.Params{
 			"0": dingo.Service("bima:config"),
 		},
-	},
-}
-
-var Generator = []dingo.Def{
-	{
-		Name:  "bima:module:generator",
-		Scope: bima.Generator,
-		Build: func(
-			dic generators.Generator,
-			model generators.Generator,
-			module generators.Generator,
-			proto generators.Generator,
-			provider generators.Generator,
-			server generators.Generator,
-			swagger generators.Generator,
-		) (*generators.Factory, error) {
-			return &generators.Factory{
-				Pluralizer: pluralize.NewClient(),
-				Template:   &generators.Template{},
-				Generators: []generators.Generator{dic, model, module, proto, provider, server, swagger},
-			}, nil
-		},
-		Params: dingo.Params{
-			"0": dingo.Service("bima:generator:dic"),
-			"1": dingo.Service("bima:generator:model"),
-			"2": dingo.Service("bima:generator:module"),
-			"3": dingo.Service("bima:generator:proto"),
-			"4": dingo.Service("bima:generator:provider"),
-			"5": dingo.Service("bima:generator:server"),
-			"6": dingo.Service("bima:generator:swagger"),
-		},
-	},
-	{
-		Name:  "bima:generator:dic",
-		Scope: bima.Generator,
-		Build: (*generators.Dic)(nil),
-	},
-	{
-		Name:  "bima:generator:model",
-		Scope: bima.Generator,
-		Build: (*generators.Model)(nil),
-	},
-	{
-		Name:  "bima:generator:module",
-		Scope: bima.Generator,
-		Build: (*generators.Module)(nil),
-	},
-	{
-		Name:  "bima:generator:proto",
-		Scope: bima.Generator,
-		Build: (*generators.Proto)(nil),
-	},
-	{
-		Name:  "bima:generator:provider",
-		Scope: bima.Generator,
-		Build: (*generators.Provider)(nil),
-	},
-	{
-		Name:  "bima:generator:server",
-		Scope: bima.Generator,
-		Build: (*generators.Server)(nil),
-	},
-	{
-		Name:  "bima:generator:swagger",
-		Scope: bima.Generator,
-		Build: (*generators.Swagger)(nil),
 	},
 }
