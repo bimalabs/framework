@@ -5,10 +5,12 @@ tasks:
             - go test -coverprofile /tmp/coverage ./... -v
     commit:
         cmds:
+            - go test -coverprofile /tmp/coverage ./... -v
             - git commit -am "{{.CLI_ARGS}}"
             - git push
     release:
         cmds:
+            - go test -coverprofile /tmp/coverage ./... -v
             - git tag -a {{.CLI_ARGS}} -m "release {{.CLI_ARGS}}"
             - git push origin {{.CLI_ARGS}}
     clean:

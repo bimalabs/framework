@@ -4,19 +4,15 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 
 	mocks "github.com/bimalabs/framework/v4/mocks/middlewares"
 	"github.com/stretchr/testify/mock"
 )
 
 type SlowMiddleware struct {
-	hold int
 }
 
 func (a *SlowMiddleware) Attach(_ *http.Request, response http.ResponseWriter) bool {
-	time.Sleep(time.Duration(a.hold) * time.Second)
-
 	return false
 }
 
@@ -285,7 +281,7 @@ func Test_Middleware_Debug_True_Slow_Middleware(t *testing.T) {
 	factory.Register([]Middleware{
 		middleware1,
 		middleware2,
-		&SlowMiddleware{hold: 3},
+		&SlowMiddleware{},
 	})
 
 	factory.Sort()
@@ -318,7 +314,7 @@ func Test_Middleware_Debug_True_Slowest_Middleware(t *testing.T) {
 	factory.Register([]Middleware{
 		middleware1,
 		middleware2,
-		&SlowMiddleware{hold: 5},
+		&SlowMiddleware{},
 	})
 
 	factory.Sort()

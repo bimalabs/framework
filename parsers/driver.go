@@ -19,7 +19,7 @@ func ParseDriver(dir string) []string {
 	path.WriteString("configs/drivers.yaml")
 
 	config, err := os.ReadFile(path.String())
-	mapping := middleware{}
+	mapping := driver{}
 	if err != nil {
 		log.Println(err)
 
