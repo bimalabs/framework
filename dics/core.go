@@ -21,6 +21,7 @@ import (
 	"github.com/bimalabs/framework/v4/routers"
 	"github.com/bimalabs/framework/v4/routes"
 	"github.com/bimalabs/framework/v4/utils"
+	"github.com/fatih/color"
 	"github.com/kamva/mgm/v3"
 	"github.com/sarulabs/dingo/v4"
 	"go.mongodb.org/mongo-driver/event"
@@ -42,9 +43,10 @@ var Application = []dingo.Def{
 				return &factory, nil
 			}
 
-			fmt.Print("✓ ")
+			util := color.New(color.FgGreen)
+			util.Print("✓ ")
 			fmt.Print("Database configured using ")
-			fmt.Print(env.Db.Driver)
+			util.Print(env.Db.Driver)
 			fmt.Println(" driver")
 
 			switch env.Db.Driver {

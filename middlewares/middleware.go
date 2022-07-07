@@ -7,11 +7,11 @@ import (
 	"net/url"
 	"reflect"
 	"sort"
-	"strconv"
 	"strings"
 	"time"
 
 	"github.com/bimalabs/framework/v4/loggers"
+	"github.com/fatih/color"
 
 	"github.com/CAFxX/httpcompression"
 	"github.com/CAFxX/httpcompression/contrib/andybalholm/brotli"
@@ -106,16 +106,50 @@ func (m *Factory) Attach(handler http.Handler) http.Handler {
 
 		elapsed := time.Since(start)
 
+		var statusCode string
 		uri, _ := url.QueryUnescape(request.RequestURI)
+		mGet := color.New(color.BgGreen, color.FgBlack)
+		mPost := color.New(color.BgYellow, color.FgBlack)
+		mPut := color.New(color.BgCyan, color.FgBlack)
+		mDelete := color.New(color.BgRed, color.FgBlack)
+
+		switch request.Method {
+		case http.MethodPost:
+			mPost.Print("[POST]")
+		case http.MethodPatch:
+			mPost.Print("[PATCH]")
+		case http.MethodPut:
+			mPut.Print("[PUT]")
+		case http.MethodDelete:
+			mDelete.Print("[DELETE]")
+		default:
+			mGet.Print("[GET]")
+		}
+
+		switch {
+		case wrapper.StatusCode() < 300:
+			statusCode = color.New(color.FgGreen, color.Bold).Sprintf("%d", wrapper.StatusCode())
+		case wrapper.StatusCode() < 400:
+			statusCode = color.New(color.FgYellow, color.Bold).Sprintf("%d", wrapper.StatusCode())
+		default:
+			statusCode = color.New(color.FgRed, color.Bold).Sprintf("%d", wrapper.StatusCode())
+		}
+
+		var elapsedString string
+		switch {
+		case elapsed.Seconds() < 1.00:
+			elapsedString = color.New(color.FgGreen, color.Bold).Sprint(elapsed)
+		case elapsed.Seconds() < 5.00:
+			elapsedString = color.New(color.FgYellow, color.Bold).Sprint(elapsed)
+		case elapsed.Seconds() > 5.00:
+			elapsedString = color.New(color.FgRed, color.Bold).Sprint(elapsed)
+		}
 
 		var stdLog strings.Builder
-		stdLog.WriteString("[")
-		stdLog.WriteString(request.Method)
-		stdLog.WriteString("]")
 		stdLog.WriteString("\t")
-		stdLog.WriteString(strconv.Itoa(wrapper.StatusCode()))
+		stdLog.WriteString(statusCode)
 		stdLog.WriteString("\t")
-		stdLog.WriteString(elapsed.String())
+		stdLog.WriteString(elapsedString)
 		stdLog.WriteString("\t")
 		stdLog.WriteString(uri)
 
