@@ -12,7 +12,10 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-type PostgreSql struct {
+type PostgreSql string
+
+func (p PostgreSql) Name() string {
+	return string(p)
 }
 
 func (_ PostgreSql) Connect(host string, port int, user string, password string, dbname string, debug bool) *gorm.DB {

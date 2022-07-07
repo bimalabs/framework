@@ -27,7 +27,7 @@ type (
 
 	Factory struct {
 		Debug       bool
-		Middlewares []Middleware
+		middlewares []Middleware
 	}
 
 	responseWrapper struct {
@@ -56,12 +56,12 @@ func (m *Factory) Register(middlewares []Middleware) {
 }
 
 func (m *Factory) Add(middlware Middleware) {
-	m.Middlewares = append(m.Middlewares, middlware)
+	m.middlewares = append(m.middlewares, middlware)
 }
 
 func (m *Factory) Sort() {
-	sort.Slice(m.Middlewares, func(i, j int) bool {
-		return m.Middlewares[i].Priority() > m.Middlewares[j].Priority()
+	sort.Slice(m.middlewares, func(i, j int) bool {
+		return m.middlewares[i].Priority() > m.middlewares[j].Priority()
 	})
 }
 
@@ -70,7 +70,7 @@ func (m *Factory) Attach(handler http.Handler) http.Handler {
 	internal := http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
 		start := time.Now()
 		if !m.Debug {
-			for _, middleware := range m.Middlewares {
+			for _, middleware := range m.middlewares {
 				if stop := middleware.Attach(request, response); stop {
 					return
 				}
@@ -90,7 +90,7 @@ func (m *Factory) Attach(handler http.Handler) http.Handler {
 		}
 
 		wrapper := responseWrapper{ResponseWriter: response}
-		for _, middleware := range m.Middlewares {
+		for _, middleware := range m.middlewares {
 			if stop := middleware.Attach(request, response); stop {
 				var stopper strings.Builder
 				stopper.WriteString("Middleware stopped by: ")

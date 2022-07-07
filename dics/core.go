@@ -33,6 +33,7 @@ var Application = []dingo.Def{
 		Scope: bima.Application,
 		Build: func(
 			env *configs.Env,
+			driver *drivers.Factory,
 			extension *loggers.LoggerExtension,
 		) (*interfaces.Factory, error) {
 			loggers.Configure(env.Debug, env.Service.ConnonicalName, *extension)
@@ -46,12 +47,7 @@ var Application = []dingo.Def{
 			fmt.Print(env.Db.Driver)
 			fmt.Println(" driver")
 
-			var db drivers.Driver
 			switch env.Db.Driver {
-			case "mysql":
-				db = drivers.Mysql{}
-			case "postgresql":
-				db = drivers.PostgreSql{}
 			case "mongo":
 				var dsn strings.Builder
 
@@ -82,29 +78,31 @@ var Application = []dingo.Def{
 
 				return &factory, nil
 			default:
-				return &factory, nil
+				configs.Database = driver.Connect(env.Db.Driver, env.Db.Host, env.Db.Port, env.Db.User, env.Db.Password, env.Db.Name)
 			}
-
-			configs.Database = db.Connect(
-				env.Db.Host,
-				env.Db.Port,
-				env.Db.User,
-				env.Db.Password,
-				env.Db.Name,
-				env.Debug,
-			)
 
 			return &factory, nil
 		},
 		Params: dingo.Params{
 			"0": dingo.Service("bima:config"),
-			"1": dingo.Service("bima:logger:extension"),
+			"1": dingo.Service("bima:driver:factory"),
+			"2": dingo.Service("bima:logger:extension"),
 		},
 	},
 	{
 		Name:  "bima:config",
 		Scope: bima.Application,
 		Build: (*configs.Env)(nil),
+	},
+	{
+		Name:  "bima:driver:factory",
+		Scope: bima.Application,
+		Build: func(env *configs.Env) (*drivers.Factory, error) {
+			return drivers.New(env.Debug), nil
+		},
+		Params: dingo.Params{
+			"0": dingo.Service("bima:config"),
+		},
 	},
 	{
 		Name:  "bima:event:dispatcher",

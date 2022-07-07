@@ -12,7 +12,10 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-type Mysql struct {
+type Mysql string
+
+func (m Mysql) Name() string {
+	return string(m)
 }
 
 func (_ Mysql) Connect(host string, port int, user string, password string, dbname string, debug bool) *gorm.DB {
