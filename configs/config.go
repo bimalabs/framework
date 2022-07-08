@@ -21,11 +21,6 @@ type (
 		Sync(client *elastic.Client)
 	}
 
-	Service struct {
-		Name           string `json:"name" yaml:"name"`
-		ConnonicalName string
-	}
-
 	Db struct {
 		Host     string `json:"host" yaml:"host"`
 		Port     int    `json:"port" yaml:"port"`
@@ -36,13 +31,14 @@ type (
 	}
 
 	Env struct {
-		Debug         bool    `json:"debug" yaml:"debug"`
-		Secret        string  `json:"secret" yaml:"secret"`
-		HttpPort      int     `json:"http_port" yaml:"http_port"`
-		RpcPort       int     `json:"rpc_port" yaml:"rpc_port"`
-		Service       Service `json:"service" yaml:"service"`
-		Db            Db      `json:"database" yaml:"database"`
-		CacheLifetime int     `json:"cache_lifetime" yaml:"cache_lifetime"`
+		Debug         bool   `json:"debug" yaml:"debug"`
+		Name          string `json:"name" yaml:"name"`
+		Secret        string `json:"secret" yaml:"secret"`
+		HttpPort      int    `json:"http_port" yaml:"http_port"`
+		RpcPort       int    `json:"rpc_port" yaml:"rpc_port"`
+		Service       string `json:"service" yaml:"service"`
+		Db            Db     `json:"database" yaml:"database"`
+		CacheLifetime int    `json:"cache_lifetime" yaml:"cache_lifetime"`
 		User          string
 	}
 )

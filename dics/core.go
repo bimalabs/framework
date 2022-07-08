@@ -37,7 +37,7 @@ var Application = []dingo.Def{
 			driver *drivers.Factory,
 			extension *loggers.LoggerExtension,
 		) (*interfaces.Factory, error) {
-			loggers.Configure(env.Debug, env.Service.ConnonicalName, *extension)
+			loggers.Configure(env.Debug, env.Service, *extension)
 			factory := interfaces.Factory{}
 			if env.Db.Driver == "" {
 				return &factory, nil
