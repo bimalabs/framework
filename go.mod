@@ -13,7 +13,6 @@ require (
 	github.com/go-playground/validator/v10 v10.11.0
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/goccy/go-json v0.9.7
-	github.com/goddtriffin/helmet v1.0.2
 	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
@@ -23,7 +22,6 @@ require (
 	github.com/kamva/mgm/v3 v3.4.1
 	github.com/klauspost/compress v1.15.7 // indirect
 	github.com/olivere/elastic/v7 v7.0.32
-	github.com/rs/cors v1.8.2
 	github.com/sarulabs/dingo/v4 v4.0.2
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.8.0

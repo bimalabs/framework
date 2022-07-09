@@ -6,6 +6,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/bimalabs/framework/v4/loggers"
 	mocks "github.com/bimalabs/framework/v4/mocks/middlewares"
 	"github.com/stretchr/testify/mock"
 )
@@ -25,6 +26,7 @@ func (a *SlowMiddleware) Priority() int {
 }
 
 func Test_Middleware_Debug_True_Without_Stop(t *testing.T) {
+	loggers.Default("test")
 	middleware1 := mocks.NewMiddleware(t)
 	middleware1.On("Attach", mock.Anything, mock.Anything).Return(false).Once()
 	middleware1.On("Priority").Return(1).Once()
@@ -55,6 +57,7 @@ func Test_Middleware_Debug_True_Without_Stop(t *testing.T) {
 }
 
 func Test_Middleware_Debug_True_Without_Stop_Method_Head(t *testing.T) {
+	loggers.Default("test")
 	middleware1 := mocks.NewMiddleware(t)
 	middleware1.On("Attach", mock.Anything, mock.Anything).Return(false).Once()
 	middleware1.On("Priority").Return(1).Once()
@@ -85,6 +88,7 @@ func Test_Middleware_Debug_True_Without_Stop_Method_Head(t *testing.T) {
 }
 
 func Test_Middleware_Debug_True_With_Stop(t *testing.T) {
+	loggers.Default("test")
 	middleware1 := mocks.NewMiddleware(t)
 	middleware1.On("Priority").Return(1).Once()
 
@@ -114,6 +118,7 @@ func Test_Middleware_Debug_True_With_Stop(t *testing.T) {
 }
 
 func Test_Middleware_Debug_False_Without_Stop(t *testing.T) {
+	loggers.Default("test")
 	middleware1 := mocks.NewMiddleware(t)
 	middleware1.On("Attach", mock.Anything, mock.Anything).Return(false).Once()
 	middleware1.On("Priority").Return(1).Once()
@@ -144,6 +149,7 @@ func Test_Middleware_Debug_False_Without_Stop(t *testing.T) {
 }
 
 func Test_Middleware_Debug_False_With_Stop(t *testing.T) {
+	loggers.Default("test")
 	middleware1 := mocks.NewMiddleware(t)
 	middleware1.On("Priority").Return(1).Once()
 
@@ -175,6 +181,7 @@ func Test_Middleware_Debug_False_With_Stop(t *testing.T) {
 }
 
 func Test_Middleware_Debug_True_Without_Stop_Return_3XX(t *testing.T) {
+	loggers.Default("test")
 	middleware1 := mocks.NewMiddleware(t)
 	middleware1.On("Attach", mock.Anything, mock.Anything).Return(false).Once()
 	middleware1.On("Priority").Return(1).Once()
@@ -207,6 +214,7 @@ func Test_Middleware_Debug_True_Without_Stop_Return_3XX(t *testing.T) {
 }
 
 func Test_Middleware_Debug_True_Without_Stop_Return_4XX(t *testing.T) {
+	loggers.Default("test")
 	middleware1 := mocks.NewMiddleware(t)
 	middleware1.On("Attach", mock.Anything, mock.Anything).Return(false).Once()
 	middleware1.On("Priority").Return(1).Once()
@@ -239,6 +247,7 @@ func Test_Middleware_Debug_True_Without_Stop_Return_4XX(t *testing.T) {
 }
 
 func Test_Middleware_Debug_True_Without_Stop_Return_5XX(t *testing.T) {
+	loggers.Default("test")
 	middleware1 := mocks.NewMiddleware(t)
 	middleware1.On("Attach", mock.Anything, mock.Anything).Return(false).Once()
 	middleware1.On("Priority").Return(1).Maybe()
@@ -271,6 +280,7 @@ func Test_Middleware_Debug_True_Without_Stop_Return_5XX(t *testing.T) {
 }
 
 func Test_Middleware_Debug_True_Slow_Middleware(t *testing.T) {
+	loggers.Default("test")
 	middleware1 := mocks.NewMiddleware(t)
 	middleware1.On("Attach", mock.Anything, mock.Anything).Return(false).Once()
 	middleware1.On("Priority").Return(1).Maybe()
@@ -304,6 +314,7 @@ func Test_Middleware_Debug_True_Slow_Middleware(t *testing.T) {
 }
 
 func Test_Middleware_Debug_True_Slowest_Middleware(t *testing.T) {
+	loggers.Default("test")
 	middleware1 := mocks.NewMiddleware(t)
 	middleware1.On("Attach", mock.Anything, mock.Anything).Return(false).Once()
 	middleware1.On("Priority").Return(1).Maybe()

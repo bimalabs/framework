@@ -27,6 +27,7 @@ type (
 
 	Factory struct {
 		Debug       bool
+		Service     string
 		middlewares []Middleware
 	}
 
