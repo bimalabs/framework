@@ -34,10 +34,6 @@ Bima Framework utilize [gRPC Gateway](https://grpc-ecosystem.github.io/grpc-gate
 
 - Easy to Custom
 
-### Video
-
-Check the [video](https://www.youtube.com/watch?v=zZPpDizZGIM)
-
 ### Requirements
 
 - Go 1.16 or above
@@ -52,7 +48,9 @@ Check the [video](https://www.youtube.com/watch?v=zZPpDizZGIM)
 
 - Elasticsearch (Optional)
 
-- RabbitMQ (Optional)
+### Video
+
+Check the [video](https://www.youtube.com/watch?v=zZPpDizZGIM)
 
 ### Basic Usage
 
@@ -127,11 +125,11 @@ Because by default skeleton doesn't provide filter. To apply request filter, you
 First, i assume you are use `mysql` or `postgresql` as driver, you need to add code below into your `todos/dic.go`
 
 ```go
-// import "github.com/bimalabs/framework/v4/listeners/paginations"
+// import "github.com/bimalabs/framework/v4/listeners"
 {
     Name:  "bima:listener:filter:gorm",
     Scope: bima.Application,
-    Build: (*paginations.GormFilter)(nil),
+    Build: (*listeners.GormFilter)(nil),
 },
 ```
 
@@ -169,7 +167,7 @@ AfterUpdateEvent  = Event("after_update")
 AfterDeleteEvent  = Event("after_delete")
 ```
 
-You can refer default listeners in [`listeners`](https://github.com/bimalabs/framework/tree/main/listeners) for example
+You can refer to [listeners](https://github.com/bimalabs/listeners) for example
 
 ### Your first middleware
 
@@ -231,6 +229,8 @@ Middleware interface {
 }
 ```
 
+You can create middleware with easy by typing `bima create middleware <name>` from terminal
+
 ### Add new route
 
 For example, you want to add new page `/api/v1/todos/hello/{name}` that response `Hello <name>` string, first add `route.go` to your `todos` folder
@@ -290,6 +290,9 @@ routes:
 Rerun using `bima run` and open `/api/v1/todos/hello/bima` and then the result like below
 
 ![Add route](assets/add-route.png)
+
+
+You can create route with easy by typing `bima create route <name>` from terminal
 
 Now, try to remove `todo` from `configs/middlewares.yaml` so your response header will be back like below
 
@@ -391,7 +394,7 @@ Don't forget to add `ELASTICSEARCH_HOST` and `ELASTICSEARCH_PORT` to your `.env`
 
 ### Using Yaml or Json config
 
-To run application using yaml or json config, you can run using `bima run -f <file>.<ext>`
+To run application using yaml or json config, you can run using `bima run -f <path>`
 
 ### Remove module
 
@@ -427,13 +430,13 @@ To remove module, just run `bima module remove <name>`
 
 ### Middlewares
 
-- [x] [Basic Auth](https://github.com/bimalabs/framework/blob/main/middlewares/basic_auth.go)
+- [x] [Basic Auth](docs/basic.md)
 
-- [x] [Jwt Auth](https://github.com/bimalabs/framework/blob/main/middlewares/jwt.go)
+- [x] [Jwt Auth](docs/jwt.md)
 
-- [x] [RequestID](https://github.com/bimalabs/framework/blob/main/middlewares/requestid.go)
+- [x] [RequestID](docs/requestid.md)
 
-- [x] [CORS](https://github.com/bimalabs/framework/blob/main/middlewares/cors.go)
+- [x] [CORS](docs/cors.md)
 
 - [x] [Helmet](docs/helmet.md)
 

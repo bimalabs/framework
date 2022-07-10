@@ -1,12 +1,14 @@
 # Enable CORS 
 
+- Add package using `go get github.com/bimalabs/middlewares`
+
 - Add CORS middleware to `dics/container.go`
 
 ```go
 {
     Name:  "bima:middleware:cors",
     Scope: bima.Application,
-    Build: (*middlewares.Cors)(nil),
+    Build: (*cors.Cors)(nil),
     Params: dingo.Params{
         "Options": cors.Options{},
     },

@@ -1,5 +1,7 @@
 # Use Elasticseearch Paginator
 
+- Add package using `go get github.com/bimalabs/listeners`
+
 For elasticsearch, we use `https://github.com/olivere/elastic` as library
 
 - Add Elasticsearch config to `dics/container.go`
@@ -82,7 +84,7 @@ For elasticsearch, we use `https://github.com/olivere/elastic` as library
 {
     Name:  "bima:listener:filter:elasticsearch",
     Scope: bima.Application,
-    Build: (*filters.ElasticsearchFilter)(nil),
+    Build: (*elasticsearch.ElasticsearchFilter)(nil),
 },
 ```
 

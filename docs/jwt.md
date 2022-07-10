@@ -2,14 +2,16 @@
 
 ## Implement JWT Login
 
+- Add package using `go get github.com/bimalabs/middlewares`
+
 - Add jwt login route to `dics/container.go`
 
 ```go
 {
     Name: "bima:route:jwt:login",
     Scope: bima.Application,
-    Build: func(env *configs.Env) (*routes.JwtLogin, error) {
-        return routes.DefaultJwtLogin("/api/v1/login", env.Secret, jwt.SigningMethodHS512.Name, true, routes.FindUserByUsernameAndPassword(func(username, password string) jwt.MapClaims {
+    Build: func(env *configs.Env) (*jwt.JwtLogin, error) {
+        return jwt.DefaultJwtLogin("/api/v1/login", env.Secret, jwt.SigningMethodHS512.Name, true, routes.FindUserByUsernameAndPassword(func(username, password string) jwt.MapClaims {
             return jwt.MapClaims{
                 "user": "admin",
             }
@@ -38,8 +40,8 @@ routes:
 {
     Name: "bima:middleware:jwt",
     Scope: bima.Application,
-    Build: func(env *configs.Env) (*middlewares.Jwt, error) {
-        return &middlewares.Jwt{
+    Build: func(env *configs.Env) (*jwt.Jwt, error) {
+        return &jwt.Jwt{
             Debug:         env.Debug,
             Env:           env,
             Secret:        env.Secret,
@@ -70,8 +72,8 @@ You can access user using `configs.Env.User` or via `request.Header.Get("X-Bima-
 {
     Name: "bima:route:jwt:refresh",
     Scope: bima.Application,
-    Build: func(env *configs.Env) (*routes.JwtRefresh, error) {
-        return &routes.JwtRefresh{
+    Build: func(env *configs.Env) (*jwt.JwtRefresh, error) {
+        return &jwt.JwtRefresh{
             PathUrl:       "/api/v1/token-refresh",
             Secret:        env.Secret,
             SigningMethod: jwt.SigningMethodHS512.Name,

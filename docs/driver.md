@@ -47,3 +47,5 @@ func (_ Sqlite) Connect(_ string, _ int, _ string, _ string, dbname string, _ bo
 drivers:
     - sqlite
 ```
+
+- You can create driver with easy by typing `bima create driver <name>` from terminal

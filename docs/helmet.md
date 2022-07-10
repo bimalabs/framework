@@ -1,4 +1,6 @@
-# Enable CORS 
+# Harding security using Helmet 
+
+- Add package using `go get github.com/bimalabs/middlewares`
 
 - Add Helmet middleware to `dics/container.go`
 
@@ -6,7 +8,7 @@
 {
     Name:  "bima:middleware:helmet",
     Scope: bima.Application,
-    Build: (*middlewares.Helmet)(nil),
+    Build: (*helmet.Helmet)(nil),
 },
 ```
 

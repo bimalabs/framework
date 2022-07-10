@@ -1,12 +1,14 @@
 # Implement Basic Auth
 
+- Add package using `go get github.com/bimalabs/middlewares`
+
 - Add basic auth middleware to `dics/container.go`
 
 ```go
 {
     Name:  "bima:middleware:basic-auth",
     Scope: bima.Application,
-    Build: (*middlewares.BasicAuth)(nil),
+    Build: (*basic_auth.BasicAuth)(nil),
     Params: dingo.Params{
         "Validator": func(username, password string) bool {
 			return true

@@ -92,14 +92,16 @@ func (s *Server) Sync(client *elastic.Client) {
 
 ## Sync Data to Elasticsearch using Listener
 
+- Add package using `go get github.com/bimalabs/listeners`
+
 - Add listeners to your `dics/container.go`
 
 ```go
 {
     Name: "bima:listener:elasticsearch:create",
     Scope: bima.Application,
-    Build: func(env *configs.Env, client *elastic.Client) (*creates.Elasticsearch, error) {
-        return &creates.Elasticsearch{
+    Build: func(env *configs.Env, client *elastic.Client) (*elasticsearch.CreateSyncElasticsearch, error) {
+        return &elasticsearch.CreateSyncElasticsearch{
             Service:       env.Service,
             Elasticsearch: client,
         }, nil
@@ -112,8 +114,8 @@ func (s *Server) Sync(client *elastic.Client) {
 {
     Name: "bima:listener:elasticsearch:update",
     Scope: bima.Application,
-    Build: func(env *configs.Env, client *elastic.Client) (*updates.Elasticsearch, error) {
-        return &updates.Elasticsearch{
+    Build: func(env *configs.Env, client *elastic.Client) (*elasticsearch.UpdateSyncElasticsearch, error) {
+        return &elasticsearch.UpdateSyncElasticsearch{
             Service:       env.Service,
             Elasticsearch: client,
         }, nil
@@ -126,8 +128,8 @@ func (s *Server) Sync(client *elastic.Client) {
 {
     Name: "bima:listener:elasticsearch:delete",
     Scope: bima.Application,
-    Build: func(env *configs.Env, client *elastic.Client) (*deletes.Elasticsearch, error) {
-        return &deletes.Elasticsearch{
+    Build: func(env *configs.Env, client *elastic.Client) (*elasticsearch.DeleteSyncElasticsearch, error) {
+        return &elasticsearch.DeleteSyncElasticsearch{
             Service:       env.Service,
             Elasticsearch: client,
         }, nil
