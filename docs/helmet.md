@@ -8,7 +8,9 @@
 {
     Name:  "bima:middleware:helmet",
     Scope: bima.Application,
-    Build: (*helmet.Helmet)(nil),
+    Build: func() (middlewares.Middleware, error) {
+        return helmet.New(), nil
+    },
 },
 ```
 

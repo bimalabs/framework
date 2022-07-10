@@ -8,9 +8,11 @@
 {
     Name:  "bima:middleware:cors",
     Scope: bima.Application,
-    Build: (*cors.Cors)(nil),
+    Build: func (options cors.Options) (middlewares.Middleware, error) {
+        return cors.New(options), nil
+    },
     Params: dingo.Params{
-        "Options": cors.Options{},
+        "0": cors.Options{},
     },
 },
 ```

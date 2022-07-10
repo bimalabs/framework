@@ -8,9 +8,11 @@
 {
     Name:  "bima:middleware:requestid",
     Scope: bima.Application,
-    Build: (*requestid.RequestID)(nil),
+    Build: func(header string)(middlewares.Middleware, nil) {
+        return requestid.New(header), nil
+    },
     Params: dingo.Params{
-        "RequestIDHeader": "X-Request-Id",
+        "0": "X-Request-Id",
     },
 },
 ```

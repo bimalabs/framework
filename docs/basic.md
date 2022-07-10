@@ -8,9 +8,11 @@
 {
     Name:  "bima:middleware:basic-auth",
     Scope: bima.Application,
-    Build: (*basic_auth.BasicAuth)(nil),
+    Build: func(validator basic_auth.ValidateUsernameAndPassword) (middlewares.Middleware, error) {
+        return basic_auth.New(validator), nil
+    },
     Params: dingo.Params{
-        "Validator": func(username, password string) bool {
+        "0": func(username, password string) bool {
 			return true
 		},
     },
