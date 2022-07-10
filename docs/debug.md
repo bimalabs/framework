@@ -30,3 +30,11 @@
 ```
 
 - Just use Debug Panel as usual
+
+##  Linux trace error
+
+`.... caused by a kernel security setting, try to writing "0" to /proc/sys/kernel/yama/ptrace_scope`
+
+- Edit `/etc/sysctl.d/10-ptrace.conf` file and set `kernel.yama.ptrace_scope = 0`
+
+- Restart
