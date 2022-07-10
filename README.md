@@ -52,6 +52,12 @@ Bima Framework utilize [gRPC Gateway](https://grpc-ecosystem.github.io/grpc-gate
 
 Check the [video](https://www.youtube.com/watch?v=zZPpDizZGIM)
 
+### Installation
+
+- Install [Bima Cli](https://github.com/bimalabs/cli)
+
+- Check and/or install toolchain using `bima makesure`
+
 ### Basic Usage
 
 - Create new project using `bima create app <name>`
