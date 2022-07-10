@@ -56,7 +56,7 @@ Check the [video](https://www.youtube.com/watch?v=zZPpDizZGIM)
 
 - Install [Bima Cli](https://github.com/bimalabs/cli)
 
-- Check and/or install toolchain using `bima makesure`
+- Check and/or install toolchain using `bima makesure` in `cli` clone folder
 
 ### Basic Usage
 
