@@ -400,7 +400,7 @@ Don't forget to add `ELASTICSEARCH_HOST` and `ELASTICSEARCH_PORT` to your `.env`
 
 ### Using Yaml or Json config
 
-To run application using yaml or json config, you can run using `bima run -f <path>`
+To run application using yaml or json config, you can run using `bima run -c <path>`
 
 ### Remove module
 

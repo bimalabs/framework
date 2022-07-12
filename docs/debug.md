@@ -2,9 +2,7 @@
 
 - Run application using debug mode `bima run debug`
 
-- Copy PID
-
-- Run debugger `bima debug <pid>`
+- Run debugger `bima debug`
 
 - Bima Framework reserved `16517` port number as debug port, you can use it for any IDE that support remote debug
 
