@@ -23,7 +23,7 @@ const (
 type (
 	Module struct {
 		Debug     bool
-		Handler   *handlers.Handler
+		Handler   handlers.Handler
 		Cache     *utils.Cache
 		Paginator *paginations.Pagination
 	}

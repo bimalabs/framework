@@ -221,7 +221,7 @@ var Application = []dingo.Def{
 		Scope: bima.Application,
 		Build: func(
 			env *configs.Env,
-			handler *handlers.Handler,
+			handler handlers.Handler,
 			cache *utils.Cache,
 		) (*bima.Module, error) {
 			return &bima.Module{

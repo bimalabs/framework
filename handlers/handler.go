@@ -10,17 +10,38 @@ import (
 	"github.com/bimalabs/framework/v4/repositories"
 )
 
-type Handler struct {
-	Debug      bool
-	Dispatcher *events.Dispatcher
-	Repository repositories.Repository
-	Adapter    paginations.Adapter
+type (
+	handler struct {
+		debug      bool
+		dispatcher *events.Dispatcher
+		repository repositories.Repository
+		adapter    paginations.Adapter
+	}
+
+	Handler interface {
+		Paginate(paginator paginations.Pagination, result interface{}) paginations.Metadata
+		Create(v interface{}) error
+		Update(v interface{}, id string) error
+		Bind(v interface{}, id string) error
+		All(v interface{}) error
+		Delete(v interface{}, id string) error
+		Repository() repositories.Repository
+	}
+)
+
+func New(debug bool, dispatcher *events.Dispatcher, repository repositories.Repository, adapter paginations.Adapter) Handler {
+	return &handler{
+		debug:      debug,
+		dispatcher: dispatcher,
+		repository: repository,
+		adapter:    adapter,
+	}
 }
 
-func (h *Handler) Paginate(paginator paginations.Pagination, result interface{}) paginations.Metadata {
+func (h *handler) Paginate(paginator paginations.Pagination, result interface{}) paginations.Metadata {
 	ctx := context.WithValue(context.Background(), "scope", "handler")
 
-	adapter := h.Adapter.CreateAdapter(ctx, paginator)
+	adapter := h.adapter.CreateAdapter(ctx, paginator)
 	if adapter == nil {
 		loggers.Logger.Error(ctx, "error when creating adapter")
 
@@ -45,18 +66,18 @@ func (h *Handler) Paginate(paginator paginations.Pagination, result interface{})
 	}
 }
 
-func (h *Handler) Create(v interface{}) error {
-	return h.Repository.Transaction(func(r repositories.Repository) error {
+func (h *handler) Create(v interface{}) error {
+	return h.repository.Transaction(func(r repositories.Repository) error {
 		var log strings.Builder
 		ctx := context.WithValue(context.Background(), "scope", "handler")
-		if h.Debug {
+		if h.debug {
 			log.WriteString("dispatching ")
 			log.WriteString(events.BeforeCreateEvent.String())
 
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.Dispatcher.Dispatch(events.BeforeCreateEvent.String(), &events.Model{
+		h.dispatcher.Dispatch(events.BeforeCreateEvent.String(), &events.Model{
 			Data:       v,
 			Repository: r,
 		})
@@ -66,7 +87,7 @@ func (h *Handler) Create(v interface{}) error {
 
 			return err
 		}
-		if h.Debug {
+		if h.debug {
 			log.Reset()
 			log.WriteString("dispatching ")
 			log.WriteString(events.AfterCreateEvent.String())
@@ -74,7 +95,7 @@ func (h *Handler) Create(v interface{}) error {
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.Dispatcher.Dispatch(events.AfterCreateEvent.String(), &events.Model{
+		h.dispatcher.Dispatch(events.AfterCreateEvent.String(), &events.Model{
 			Data:       v,
 			Repository: r,
 		})
@@ -83,18 +104,18 @@ func (h *Handler) Create(v interface{}) error {
 	})
 }
 
-func (h *Handler) Update(v interface{}, id string) error {
-	return h.Repository.Transaction(func(r repositories.Repository) error {
+func (h *handler) Update(v interface{}, id string) error {
+	return h.repository.Transaction(func(r repositories.Repository) error {
 		var log strings.Builder
 		ctx := context.WithValue(context.Background(), "scope", "handler")
-		if h.Debug {
+		if h.debug {
 			log.WriteString("dispatching ")
 			log.WriteString(events.BeforeUpdateEvent.String())
 
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.Dispatcher.Dispatch(events.BeforeUpdateEvent.String(), &events.Model{
+		h.dispatcher.Dispatch(events.BeforeUpdateEvent.String(), &events.Model{
 			Id:         id,
 			Data:       v,
 			Repository: r,
@@ -105,7 +126,7 @@ func (h *Handler) Update(v interface{}, id string) error {
 
 			return err
 		}
-		if h.Debug {
+		if h.debug {
 			log.Reset()
 			log.WriteString("dispatching ")
 			log.WriteString(events.AfterUpdateEvent.String())
@@ -113,7 +134,7 @@ func (h *Handler) Update(v interface{}, id string) error {
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.Dispatcher.Dispatch(events.AfterUpdateEvent.String(), &events.Model{
+		h.dispatcher.Dispatch(events.AfterUpdateEvent.String(), &events.Model{
 			Id:         id,
 			Data:       v,
 			Repository: r,
@@ -123,26 +144,26 @@ func (h *Handler) Update(v interface{}, id string) error {
 	})
 }
 
-func (h *Handler) Bind(v interface{}, id string) error {
-	return h.Repository.Bind(v, id)
+func (h *handler) Bind(v interface{}, id string) error {
+	return h.repository.Bind(v, id)
 }
 
-func (h *Handler) All(v interface{}) error {
-	return h.Repository.All(v)
+func (h *handler) All(v interface{}) error {
+	return h.repository.All(v)
 }
 
-func (h *Handler) Delete(v interface{}, id string) error {
-	return h.Repository.Transaction(func(r repositories.Repository) error {
+func (h *handler) Delete(v interface{}, id string) error {
+	return h.repository.Transaction(func(r repositories.Repository) error {
 		var log strings.Builder
 		ctx := context.WithValue(context.Background(), "scope", "handler")
-		if h.Debug {
+		if h.debug {
 			log.WriteString("dispatching ")
 			log.WriteString(events.BeforeDeleteEvent.String())
 
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.Dispatcher.Dispatch(events.BeforeDeleteEvent.String(), &events.Model{
+		h.dispatcher.Dispatch(events.BeforeDeleteEvent.String(), &events.Model{
 			Id:         id,
 			Data:       v,
 			Repository: r,
@@ -154,7 +175,7 @@ func (h *Handler) Delete(v interface{}, id string) error {
 			return err
 		}
 
-		if h.Debug {
+		if h.debug {
 			log.Reset()
 			log.WriteString("dispatching ")
 			log.WriteString(events.AfterDeleteEvent.String())
@@ -162,7 +183,7 @@ func (h *Handler) Delete(v interface{}, id string) error {
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.Dispatcher.Dispatch(events.AfterDeleteEvent.String(), &events.Model{
+		h.dispatcher.Dispatch(events.AfterDeleteEvent.String(), &events.Model{
 			Id:         id,
 			Data:       v,
 			Repository: r,
@@ -170,4 +191,8 @@ func (h *Handler) Delete(v interface{}, id string) error {
 
 		return nil
 	})
+}
+
+func (h *handler) Repository() repositories.Repository {
+	return h.repository
 }
