@@ -138,5 +138,5 @@ func (m *Module) Delete(ctx context.Context, r *grpcs.{{.Module}}) (*grpcs.{{.Mo
     m.Handler.Delete(v, r.Id)
     m.Cache.Invalidate(r.Id)
 
-	return nil, nil
+	return grpcs.{{.Module}}{}, nil
 }
