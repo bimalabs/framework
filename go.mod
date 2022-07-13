@@ -18,7 +18,7 @@ require (
 	github.com/iancoleman/strcase v0.2.0
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/kamva/mgm/v3 v3.4.1
-	github.com/klauspost/compress v1.15.7 // indirect
+	github.com/klauspost/compress v1.15.8 // indirect
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/sarulabs/dingo/v4 v4.0.2
 	github.com/sirupsen/logrus v1.8.1
@@ -30,11 +30,11 @@ require (
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
 	golang.org/x/net v0.0.0-20220708220712-1185a9018129 // indirect
 	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f // indirect
-	golang.org/x/sys v0.0.0-20220708085239-5a0f0661e09d // indirect
+	golang.org/x/sys v0.0.0-20220712014510-0a85c31ab51e // indirect
 	golang.org/x/tools v0.1.5 // indirect
 	golang.org/x/xerrors v0.0.0-20220609144429-65e65417b02f // indirect
-	google.golang.org/genproto v0.0.0-20220708155623-50e5f4832e73 // indirect
-	google.golang.org/grpc v1.47.0
+	google.golang.org/genproto v0.0.0-20220712132514-bdd2acd4974d // indirect
+	google.golang.org/grpc v1.48.0
 	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/driver/mysql v1.3.4
 	gorm.io/driver/postgres v1.3.7
