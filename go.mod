@@ -9,11 +9,9 @@ require (
 	github.com/ThreeDotsLabs/watermill-kafka/v2 v2.2.2
 	github.com/allegro/bigcache/v3 v3.0.2
 	github.com/fatih/color v1.13.0
-	github.com/gertd/go-pluralize v0.1.7
 	github.com/go-playground/validator/v10 v10.11.0
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/goccy/go-json v0.9.7
-	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.3
@@ -30,7 +28,6 @@ require (
 	github.com/youmark/pkcs8 v0.0.0-20201027041543-1326539a0a0a // indirect
 	go.mongodb.org/mongo-driver v1.9.1
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
-	golang.org/x/mod v0.4.2
 	golang.org/x/net v0.0.0-20220708220712-1185a9018129 // indirect
 	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f // indirect
 	golang.org/x/sys v0.0.0-20220708085239-5a0f0661e09d // indirect
