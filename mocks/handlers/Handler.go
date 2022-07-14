@@ -70,6 +70,27 @@ func (_m *Handler) Delete(v interface{}, id string) error {
 	return r0
 }
 
+// FindBy provides a mock function with given fields: v, filters
+func (_m *Handler) FindBy(v interface{}, filters ...repositories.Filter) error {
+	_va := make([]interface{}, len(filters))
+	for _i := range filters {
+		_va[_i] = filters[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, v)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(interface{}, ...repositories.Filter) error); ok {
+		r0 = rf(v, filters...)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // Paginate provides a mock function with given fields: paginator, result
 func (_m *Handler) Paginate(paginator paginations.Pagination, result interface{}) paginations.Metadata {
 	ret := _m.Called(paginator, result)

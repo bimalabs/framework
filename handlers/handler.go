@@ -23,6 +23,7 @@ type (
 		Create(v interface{}) error
 		Update(v interface{}, id string) error
 		Bind(v interface{}, id string) error
+		FindBy(v interface{}, filters ...repositories.Filter) error
 		All(v interface{}) error
 		Delete(v interface{}, id string) error
 		Repository() repositories.Repository
@@ -150,6 +151,10 @@ func (h *handler) Bind(v interface{}, id string) error {
 
 func (h *handler) All(v interface{}) error {
 	return h.repository.All(v)
+}
+
+func (h *handler) FindBy(v interface{}, filters ...repositories.Filter) error {
+	return h.repository.FindBy(v, filters...)
 }
 
 func (h *handler) Delete(v interface{}, id string) error {
