@@ -51,7 +51,7 @@ For elasticsearch, we use `https://github.com/olivere/elastic` as library
 func (s *Server) Sync(client *elastic.Client) {
 	ctx := context.WithValue(context.Background(), "scope", "sync")
 	var records []Todo
-	err := s.Module.Handler.Repository.FindBy(&records, repositories.Filter{
+	err := s.Module.Handler.FindBy(&records, repositories.Filter{
 		Field:    "synced_at",
 		Operator: "<=",
 		Value:    time.Now().Add(-5*time.Minute), //Last sync 5 minutes ago
