@@ -32,10 +32,15 @@ func (_ Sqlite) Connect(_ string, _ int, _ string, _ string, dbname string, _ bo
 - Add definition to `dics/container.go`
 
 ```go
+import (
+	bima_drivers "github.com/bimalabs/framework/v4/drivers"
+    "app/drivers"
+)
+
 {
     Name:  "bima:driver:sqlite",
     Scope: bima.Application,
-    Build: func() (*drivers.Sqlite, error) {
+    Build: func() (bima_drivers.Driver, error) {
         return Sqlite("sqlite")
     },
 },

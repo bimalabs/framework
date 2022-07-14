@@ -5,6 +5,11 @@
 - Add CORS middleware to `dics/container.go`
 
 ```go
+import (
+	"github.com/bimalabs/framework/v4/middlewares"
+	"github.com/bimalabs/middlewares/cors"
+)
+
 {
     Name:  "bima:middleware:cors",
     Scope: bima.Application,
