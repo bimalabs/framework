@@ -434,6 +434,8 @@ To remove module, just run `bima module remove <name>`
 
 - [x] [Debugging Skeleton](docs/debug.md)
 
+- [x] [Unit Testing](docs/unit_test.md)
+
 ### Middlewares
 
 - [x] [Basic Auth](docs/basic.md)
