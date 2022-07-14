@@ -33,9 +33,8 @@ require (
 	golang.org/x/sys v0.0.0-20220712014510-0a85c31ab51e // indirect
 	golang.org/x/tools v0.1.5 // indirect
 	golang.org/x/xerrors v0.0.0-20220609144429-65e65417b02f // indirect
-	google.golang.org/genproto v0.0.0-20220712132514-bdd2acd4974d // indirect
+	google.golang.org/genproto v0.0.0-20220713161829-9c7dac0a6568 // indirect
 	google.golang.org/grpc v1.48.0
-	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/driver/mysql v1.3.4
 	gorm.io/driver/postgres v1.3.7
 	gorm.io/gorm v1.23.8
