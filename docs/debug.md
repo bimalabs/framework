@@ -2,8 +2,6 @@
 
 - Run application using debug mode `bima run debug`
 
-- Run debugger `bima debug`
-
 - Bima Framework reserved `16517` port number as debug port, you can use it for any IDE that support remote debug
 
 - For VS Code user, copy `launch.json` below
