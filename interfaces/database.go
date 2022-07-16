@@ -2,12 +2,13 @@ package interfaces
 
 import (
 	"github.com/bimalabs/framework/v4/configs"
+	"golang.org/x/net/context"
 )
 
 type Database struct {
 }
 
-func (d *Database) Run(servers []configs.Server) {
+func (d *Database) Run(ctx context.Context, servers []configs.Server) {
 	if configs.Database == nil {
 		return
 	}

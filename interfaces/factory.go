@@ -5,11 +5,12 @@ import (
 	"time"
 
 	"github.com/bimalabs/framework/v4/configs"
+	"golang.org/x/net/context"
 )
 
 type (
 	Application interface {
-		Run(servers []configs.Server)
+		Run(ctx context.Context, servers []configs.Server)
 		IsBackground() bool
 		Priority() int
 	}
@@ -34,12 +35,15 @@ func (f *Factory) Run(servers []configs.Server) {
 		return f.applications[i].Priority() > f.applications[j].Priority()
 	})
 
+	ctx, cancel := context.WithCancel(context.Background())
 	for _, application := range f.applications {
 		if application.IsBackground() {
-			go application.Run(servers)
+			go application.Run(ctx, servers)
 		} else {
 			time.Sleep(100 * time.Millisecond)
-			application.Run(servers)
+			application.Run(ctx, servers)
 		}
 	}
+
+	defer cancel()
 }

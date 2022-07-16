@@ -1,6 +1,7 @@
 package interfaces
 
 import (
+	"context"
 	"log"
 	"net"
 	"strconv"
@@ -20,7 +21,7 @@ type GRpc struct {
 	Debug    bool
 }
 
-func (g *GRpc) Run(servers []configs.Server) {
+func (g *GRpc) Run(ctx context.Context, servers []configs.Server) {
 	var gRpcAddress strings.Builder
 	gRpcAddress.WriteString(":")
 	gRpcAddress.WriteString(strconv.Itoa(g.GRpcPort))
@@ -47,6 +48,13 @@ func (g *GRpc) Run(servers []configs.Server) {
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(streams...)),
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(unaries...)),
 	)
+	go func() {
+		select {
+		case <-ctx.Done():
+			gRpc.Stop()
+		}
+
+	}()
 
 	for _, server := range servers {
 		server.Register(gRpc)
