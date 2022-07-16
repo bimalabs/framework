@@ -19,7 +19,7 @@ type Rest struct {
 	GRpcClient *grpc.ClientConn
 }
 
-func (r *Rest) Run(servers []configs.Server) {
+func (r *Rest) Run(ctx context.Context, servers []configs.Server) {
 	r.Middleware.Sort()
 	r.Router.Sort()
 
