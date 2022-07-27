@@ -50,9 +50,9 @@ func (h *Health) Handle(w http.ResponseWriter, r *http.Request, _ map[string]str
 
 	payload := map[string]interface{}{
 		"version": bima.Version,
-		"name":    "Bima",
+		"name":    "Bima Framework",
 		"author":  "Muhamad Surya Iksanudin<surya.iksanudin@gmail.com>",
-		"link":    "https://github.com/KejawenLab/skeleton",
+		"link":    "https://github.com/bimalabs/framework",
 		"memory_usage": map[string]string{
 			"allocation":       alloc.String(),
 			"total_allocation": totalAlloc.String(),
