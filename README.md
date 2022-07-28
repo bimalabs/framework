@@ -426,6 +426,8 @@ To remove module, just run `bima module remove <name>`
 
 - [x] [Convert Mux Middleware to Bima Middleware](docs/convert_middleware.md)
 
+- [x] [Model Relationship](docs/model.md)
+
 - [x] [Create Your Own Database Driver](docs/driver.md)
 
 - [x] [Use MongoDB as Storage Driver](docs/mongodb.md)
