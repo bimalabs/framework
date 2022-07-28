@@ -2,6 +2,7 @@ package loggers
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"runtime"
 	"strings"
@@ -172,11 +173,14 @@ func (l *logger) Panic(ctx context.Context, message string) {
 
 func (l *logger) fields(caller string, file string, line int) {
 	workDir, _ := os.Getwd()
+	f := strings.Replace(file, workDir, ".", 1)
+
 	l.data["debug"] = l.verbose
 	l.data["service"] = l.service
 	l.data["trace"] = map[string]interface{}{
 		"caller": caller,
-		"file":   strings.Replace(file, workDir, ".", 1),
+		"file":   f,
 		"line":   line,
+		"expr":   fmt.Sprintf("%s:%d", f, line),
 	}
 }

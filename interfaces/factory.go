@@ -36,6 +36,7 @@ func (f *Factory) Run(servers []configs.Server) {
 	})
 
 	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	for _, application := range f.applications {
 		if application.IsBackground() {
 			go application.Run(ctx, servers)
@@ -44,6 +45,4 @@ func (f *Factory) Run(servers []configs.Server) {
 			application.Run(ctx, servers)
 		}
 	}
-
-	defer cancel()
 }
