@@ -412,6 +412,8 @@ To remove module, just run `bima module remove <name>`
 
 - [x] [Basic Auth](docs/basic.md)
 
+- [x] [Api Key Auth](docs/api_key.md)
+
 - [x] [Distributed Tracing (RequestID)](docs/requestid.md)
 
 - [x] [Enable CORS](docs/cors.md)
@@ -441,6 +443,8 @@ To remove module, just run `bima module remove <name>`
 ### Middlewares
 
 - [x] [Basic Auth](docs/basic.md)
+
+- [x] [Api Key Auth](docs/api_key.md)
 
 - [x] [Jwt Auth](docs/jwt.md)
 
