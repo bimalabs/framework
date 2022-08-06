@@ -35,7 +35,7 @@ func Test_Mux_Router(t *testing.T) {
 	route.On("Middlewares").Return(nil).Once()
 	route.On("Handle", mock.Anything, mock.Anything, mock.Anything).Once()
 
-	router := MuxRouter{}
+	router := MuxRouter{ApiPrefix: "/api"}
 	router.Register([]routes.Route{route})
 
 	assert.Equal(t, -255, router.Priority())
@@ -43,7 +43,7 @@ func Test_Mux_Router(t *testing.T) {
 
 	router.Handle(context.TODO(), server, conn)
 
-	req := httptest.NewRequest("GET", "http://bima.framework/without-middleware", nil)
+	req := httptest.NewRequest("GET", "http://bima.framework/api/without-middleware", nil)
 	w := httptest.NewRecorder()
 
 	server.ServeHTTP(w, req)
@@ -60,7 +60,7 @@ func Test_Mux_Router(t *testing.T) {
 	route.On("Middlewares").Return([]middlewares.Middleware{middleware}).Once()
 	route.On("Handle", mock.Anything, mock.Anything, mock.Anything).Once()
 
-	router = MuxRouter{}
+	router = MuxRouter{ApiPrefix: "/api"}
 	router.Register([]routes.Route{route})
 
 	assert.Equal(t, -255, router.Priority())
@@ -68,7 +68,7 @@ func Test_Mux_Router(t *testing.T) {
 
 	router.Handle(context.TODO(), server, conn)
 
-	req = httptest.NewRequest("GET", "http://bima.framework/middleware", nil)
+	req = httptest.NewRequest("GET", "http://bima.framework/api/middleware", nil)
 	w = httptest.NewRecorder()
 
 	server.ServeHTTP(w, req)
@@ -84,7 +84,7 @@ func Test_Mux_Router(t *testing.T) {
 	route.On("SetClient", mock.Anything).Once()
 	route.On("Middlewares").Return([]middlewares.Middleware{middleware}).Once()
 
-	router = MuxRouter{}
+	router = MuxRouter{ApiPrefix: "/api"}
 	router.Register([]routes.Route{route})
 
 	assert.Equal(t, -255, router.Priority())
@@ -92,7 +92,7 @@ func Test_Mux_Router(t *testing.T) {
 
 	router.Handle(context.TODO(), server, conn)
 
-	req = httptest.NewRequest("GET", "http://bima.framework/middleware-stop", nil)
+	req = httptest.NewRequest("GET", "http://bima.framework/api/middleware-stop", nil)
 	w = httptest.NewRecorder()
 
 	server.ServeHTTP(w, req)
@@ -109,7 +109,8 @@ func Test_Mux_Router(t *testing.T) {
 	route.On("Middlewares").Return([]middlewares.Middleware{middleware}).Once()
 
 	router = MuxRouter{
-		Debug: true,
+		Debug:     true,
+		ApiPrefix: "/api",
 	}
 	router.Register([]routes.Route{route})
 
@@ -118,7 +119,7 @@ func Test_Mux_Router(t *testing.T) {
 
 	router.Handle(context.TODO(), server, conn)
 
-	req = httptest.NewRequest("GET", "http://bima.framework/middleware-stop", nil)
+	req = httptest.NewRequest("GET", "http://bima.framework/api/middleware-stop", nil)
 	w = httptest.NewRecorder()
 
 	server.ServeHTTP(w, req)
@@ -136,7 +137,8 @@ func Test_Mux_Router(t *testing.T) {
 	route.On("Handle", mock.Anything, mock.Anything, mock.Anything).Once()
 
 	router = MuxRouter{
-		Debug: true,
+		Debug:     true,
+		ApiPrefix: "/api",
 	}
 	router.Register([]routes.Route{route})
 
@@ -145,7 +147,7 @@ func Test_Mux_Router(t *testing.T) {
 
 	router.Handle(context.TODO(), server, conn)
 
-	req = httptest.NewRequest("GET", "http://bima.framework/middleware-stop", nil)
+	req = httptest.NewRequest("GET", "http://bima.framework/api/middleware-stop", nil)
 	w = httptest.NewRecorder()
 
 	server.ServeHTTP(w, req)

@@ -169,7 +169,7 @@ var Application = []dingo.Def{
 			apiDocRedirection routes.Route,
 			health routes.Route,
 		) (*routers.MuxRouter, error) {
-			routers := routers.MuxRouter{Debug: env.Debug}
+			routers := routers.MuxRouter{Debug: env.Debug, ApiPrefix: env.ApiPrefix}
 			routers.Register([]routes.Route{apiDoc, apiDocRedirection, health})
 
 			return &routers, nil

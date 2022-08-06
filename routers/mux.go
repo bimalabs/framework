@@ -13,8 +13,9 @@ import (
 )
 
 type MuxRouter struct {
-	Debug  bool
-	routes []routes.Route
+	Debug     bool
+	ApiPrefix string
+	routes    []routes.Route
 }
 
 func (m *MuxRouter) Register(muxs []routes.Route) {
@@ -31,7 +32,7 @@ func (m *MuxRouter) Handle(context context.Context, server *runtime.ServeMux, cl
 	for _, v := range m.routes {
 		route := v
 		route.SetClient(client)
-		server.HandlePath(route.Method(), route.Path(), func(w http.ResponseWriter, r *http.Request, params map[string]string) {
+		server.HandlePath(route.Method(), m.ApiPrefix+route.Path(), func(w http.ResponseWriter, r *http.Request, params map[string]string) {
 			if !m.Debug {
 				for _, middleware := range route.Middlewares() {
 					if stop := middleware.Attach(r, w); stop {

@@ -39,6 +39,7 @@ type (
 		Service       string `json:"service" yaml:"service"`
 		Db            Db     `json:"database" yaml:"database"`
 		CacheLifetime int    `json:"cache_lifetime" yaml:"cache_lifetime"`
+		ApiPrefix     string `json:"api_prefix" yaml:"api_prefix"`
 		User          string
 	}
 )
