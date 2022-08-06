@@ -190,7 +190,7 @@ var Application = []dingo.Def{
 		Name:  "bima:route:api-doc",
 		Scope: bima.Application,
 		Build: func(env *configs.Env) (*routes.ApiDoc, error) {
-			return &routes.ApiDoc{Debug: env.Debug}, nil
+			return &routes.ApiDoc{Debug: env.Debug, ApiPrefix: env.ApiPrefix}, nil
 		},
 		Params: dingo.Params{
 			"0": dingo.Service("bima:config"),

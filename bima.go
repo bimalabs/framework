@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	Version = "v4.2.7"
+	Version = "v4.2.9"
 
 	HighestPriority = 255
 	LowestPriority  = -255

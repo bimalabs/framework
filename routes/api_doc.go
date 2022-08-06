@@ -12,7 +12,8 @@ import (
 const ApiDocPath = "/docs"
 
 type ApiDoc struct {
-	Debug bool
+	ApiPrefix string
+	Debug     bool
 }
 
 func (a *ApiDoc) Path() string {
@@ -41,7 +42,7 @@ func (a *ApiDoc) Handle(w http.ResponseWriter, r *http.Request, _ map[string]str
 	}
 
 	var path strings.Builder
-	path.WriteString(ApiDocPath)
+	path.WriteString(a.ApiPrefix + ApiDocPath)
 	path.WriteString("/")
 
 	regex := regexp.MustCompile(path.String())
