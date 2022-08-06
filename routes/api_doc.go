@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-const ApiDocPath = "/api/docs"
+const ApiDocPath = "/docs"
 
 type ApiDoc struct {
 	Debug bool
