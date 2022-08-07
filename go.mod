@@ -13,7 +13,7 @@ require (
 	github.com/goccy/go-json v0.9.7
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.1
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.2
 	github.com/iancoleman/strcase v0.2.0
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/kamva/mgm/v3 v3.4.1
