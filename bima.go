@@ -37,6 +37,12 @@ type (
 	}
 )
 
+func NewModel() GormModel {
+	return GormModel{
+		GormBase: models.GormBase{},
+	}
+}
+
 func (s *Server) Consume(messenger *messengers.Messenger) {
 }
 
