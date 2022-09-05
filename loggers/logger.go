@@ -10,9 +10,13 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-var Logger *logger
+var (
+	Logger *logger
+)
 
 type (
+	Scope string
+
 	LoggerExtension struct {
 		Extensions []logrus.Hook
 	}
@@ -24,6 +28,8 @@ type (
 		Engine  *logrus.Logger
 	}
 )
+
+const ScopeKey = Scope("scope")
 
 func Default(service string) {
 	Configure(true, service, LoggerExtension{})
@@ -69,7 +75,7 @@ func (l *logger) Trace(ctx context.Context, message string) {
 		caller = detail.Name()
 	}
 
-	l.Add("scope", ctx.Value("scope"))
+	l.Add("scope", ctx.Value(ScopeKey))
 	l.fields(caller, file, line)
 
 	go l.Engine.WithFields(l.data).Trace(message)
@@ -85,7 +91,7 @@ func (l *logger) Debug(ctx context.Context, message string) {
 		caller = detail.Name()
 	}
 
-	l.Add("scope", ctx.Value("scope"))
+	l.Add("scope", ctx.Value(ScopeKey))
 	l.fields(caller, file, line)
 
 	go l.Engine.WithFields(l.data).Debug(message)
@@ -101,7 +107,7 @@ func (l *logger) Info(ctx context.Context, message string) {
 		caller = detail.Name()
 	}
 
-	l.Add("scope", ctx.Value("scope"))
+	l.Add("scope", ctx.Value(ScopeKey))
 	l.fields(caller, file, line)
 
 	go l.Engine.WithFields(l.data).Info(message)
@@ -117,7 +123,7 @@ func (l *logger) Warning(ctx context.Context, message string) {
 		caller = detail.Name()
 	}
 
-	l.Add("scope", ctx.Value("scope"))
+	l.Add("scope", ctx.Value(ScopeKey))
 	l.fields(caller, file, line)
 
 	go l.Engine.WithFields(l.data).Warning(message)
@@ -133,7 +139,7 @@ func (l *logger) Error(ctx context.Context, message string) {
 		caller = detail.Name()
 	}
 
-	l.Add("scope", ctx.Value("scope"))
+	l.Add("scope", ctx.Value(ScopeKey))
 	l.fields(caller, file, line)
 
 	go l.Engine.WithFields(l.data).Error(message)
@@ -149,7 +155,7 @@ func (l *logger) Fatal(ctx context.Context, message string) {
 		caller = detail.Name()
 	}
 
-	l.Add("scope", ctx.Value("scope"))
+	l.Add("scope", ctx.Value(ScopeKey))
 	l.fields(caller, file, line)
 
 	go l.Engine.WithFields(l.data).Fatal(message)
@@ -165,7 +171,7 @@ func (l *logger) Panic(ctx context.Context, message string) {
 		caller = detail.Name()
 	}
 
-	l.Add("scope", ctx.Value("scope"))
+	l.Add("scope", ctx.Value(ScopeKey))
 	l.fields(caller, file, line)
 
 	go l.Engine.WithFields(l.data).Panic(message)

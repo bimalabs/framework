@@ -9,6 +9,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func Test_Api_Doc(t *testing.T) {
@@ -16,7 +17,7 @@ func Test_Api_Doc(t *testing.T) {
 	defer cancel()
 
 	endpoint := "0.0.0.0:111"
-	conn, _ := grpc.DialContext(ctx, endpoint, grpc.WithInsecure())
+	conn, _ := grpc.DialContext(ctx, endpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	req := httptest.NewRequest("GET", "http://bima.framework/api/docs/", nil)
 	w := httptest.NewRecorder()

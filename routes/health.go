@@ -31,14 +31,12 @@ func (h *Health) SetClient(client *grpc.ClientConn) {
 }
 
 func (h *Health) Handle(w http.ResponseWriter, r *http.Request, _ map[string]string) {
+	w.Header().Set("Content-Type", "application/json")
 
-	payload := map[string]interface{}{
+	json.NewEncoder(w).Encode(map[string]interface{}{
 		"version": bima.Version,
 		"name":    "Bima Framework",
 		"author":  "Muhamad Surya Iksanudin<surya.iksanudin@gmail.com>",
 		"link":    "https://github.com/bimalabs/framework",
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(payload)
+	})
 }

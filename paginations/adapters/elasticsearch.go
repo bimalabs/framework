@@ -38,9 +38,8 @@ func (es *ElasticsearchAdapter) CreateAdapter(ctx context.Context, paginator pag
 		return nil
 	}
 
-	query := elastic.NewBoolQuery()
 	event := events.ElasticsearchPagination{
-		Query:   query,
+		Query:   elastic.NewBoolQuery(),
 		Filters: paginator.Filters,
 	}
 

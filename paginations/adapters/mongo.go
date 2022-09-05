@@ -21,7 +21,6 @@ type (
 
 	mongodbPaginator struct {
 		context    context.Context
-		index      string
 		pageQuery  *mgm.Collection
 		totalQuery *mgm.Collection
 		filter     bson.M

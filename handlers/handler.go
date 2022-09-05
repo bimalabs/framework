@@ -40,7 +40,7 @@ func New(debug bool, dispatcher *events.Dispatcher, repository repositories.Repo
 }
 
 func (h *handler) Paginate(paginator paginations.Pagination, result interface{}) paginations.Metadata {
-	ctx := context.WithValue(context.Background(), "scope", "handler")
+	ctx := context.WithValue(context.Background(), loggers.ScopeKey, "handler")
 
 	adapter := h.adapter.CreateAdapter(ctx, paginator)
 	if adapter == nil {
@@ -70,7 +70,7 @@ func (h *handler) Paginate(paginator paginations.Pagination, result interface{})
 func (h *handler) Create(v interface{}) error {
 	return h.repository.Transaction(func(r repositories.Repository) error {
 		var log strings.Builder
-		ctx := context.WithValue(context.Background(), "scope", "handler")
+		ctx := context.WithValue(context.Background(), loggers.ScopeKey, "handler")
 		if h.debug {
 			log.WriteString("dispatching ")
 			log.WriteString(events.BeforeCreateEvent.String())
@@ -88,6 +88,7 @@ func (h *handler) Create(v interface{}) error {
 
 			return err
 		}
+
 		if h.debug {
 			log.Reset()
 			log.WriteString("dispatching ")
@@ -108,7 +109,7 @@ func (h *handler) Create(v interface{}) error {
 func (h *handler) Update(v interface{}, id string) error {
 	return h.repository.Transaction(func(r repositories.Repository) error {
 		var log strings.Builder
-		ctx := context.WithValue(context.Background(), "scope", "handler")
+		ctx := context.WithValue(context.Background(), loggers.ScopeKey, "handler")
 		if h.debug {
 			log.WriteString("dispatching ")
 			log.WriteString(events.BeforeUpdateEvent.String())
@@ -160,7 +161,7 @@ func (h *handler) FindBy(v interface{}, filters ...repositories.Filter) error {
 func (h *handler) Delete(v interface{}, id string) error {
 	return h.repository.Transaction(func(r repositories.Repository) error {
 		var log strings.Builder
-		ctx := context.WithValue(context.Background(), "scope", "handler")
+		ctx := context.WithValue(context.Background(), loggers.ScopeKey, "handler")
 		if h.debug {
 			log.WriteString("dispatching ")
 			log.WriteString(events.BeforeDeleteEvent.String())
