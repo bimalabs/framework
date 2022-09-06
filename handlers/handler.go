@@ -50,7 +50,7 @@ func (h *handler) Paginate(paginator paginations.Pagination, result interface{})
 	}
 
 	var total64 int64
-	paginator.Paginate(adapter, result, &total64)
+	_ = paginator.Paginate(adapter, result, &total64)
 
 	var total = int(total64)
 	next := paginator.Page + 1
@@ -78,7 +78,7 @@ func (h *handler) Create(v interface{}) error {
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.dispatcher.Dispatch(events.BeforeCreateEvent.String(), &events.Model{
+		_ = h.dispatcher.Dispatch(events.BeforeCreateEvent.String(), &events.Model{
 			Data:       v,
 			Repository: r,
 		})
@@ -97,7 +97,7 @@ func (h *handler) Create(v interface{}) error {
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.dispatcher.Dispatch(events.AfterCreateEvent.String(), &events.Model{
+		_ = h.dispatcher.Dispatch(events.AfterCreateEvent.String(), &events.Model{
 			Data:       v,
 			Repository: r,
 		})
@@ -117,7 +117,7 @@ func (h *handler) Update(v interface{}, id string) error {
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.dispatcher.Dispatch(events.BeforeUpdateEvent.String(), &events.Model{
+		_ = h.dispatcher.Dispatch(events.BeforeUpdateEvent.String(), &events.Model{
 			Id:         id,
 			Data:       v,
 			Repository: r,
@@ -136,7 +136,7 @@ func (h *handler) Update(v interface{}, id string) error {
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.dispatcher.Dispatch(events.AfterUpdateEvent.String(), &events.Model{
+		_ = h.dispatcher.Dispatch(events.AfterUpdateEvent.String(), &events.Model{
 			Id:         id,
 			Data:       v,
 			Repository: r,
@@ -169,7 +169,7 @@ func (h *handler) Delete(v interface{}, id string) error {
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.dispatcher.Dispatch(events.BeforeDeleteEvent.String(), &events.Model{
+		_ = h.dispatcher.Dispatch(events.BeforeDeleteEvent.String(), &events.Model{
 			Id:         id,
 			Data:       v,
 			Repository: r,
@@ -189,7 +189,7 @@ func (h *handler) Delete(v interface{}, id string) error {
 			loggers.Logger.Debug(ctx, log.String())
 		}
 
-		h.dispatcher.Dispatch(events.AfterDeleteEvent.String(), &events.Model{
+		_ = h.dispatcher.Dispatch(events.AfterDeleteEvent.String(), &events.Model{
 			Id:         id,
 			Data:       v,
 			Repository: r,

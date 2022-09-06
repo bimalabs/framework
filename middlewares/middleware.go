@@ -67,7 +67,7 @@ func (m *Factory) Sort() {
 }
 
 func (m *Factory) Attach(handler http.Handler) http.Handler {
-	ctx := context.WithValue(context.Background(), "scope", "middleware")
+	ctx := context.WithValue(context.Background(), loggers.ScopeKey, "middleware")
 	internal := http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
 		start := time.Now()
 		if !m.Debug {

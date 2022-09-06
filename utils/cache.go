@@ -17,11 +17,11 @@ func NewCache(lifetime time.Duration) *Cache {
 }
 
 func (c *Cache) Set(key string, value []byte) {
-	c.pool.Set(key, value)
+	_ = c.pool.Set(key, value)
 }
 
 func (c *Cache) Invalidate(key string) {
-	c.pool.Delete(key)
+	_ = c.pool.Delete(key)
 }
 
 func (c *Cache) Get(key string) ([]byte, bool) {

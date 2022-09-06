@@ -88,12 +88,12 @@ func Test_Pagination_Paginate(t *testing.T) {
 	result := []interface{}{}
 	pagination := Pagination{}
 	pagination.Handle(Request{})
-	pagination.Paginate(TestAdapter{}, &result, &total)
+	_ = pagination.Paginate(TestAdapter{}, &result, &total)
 
 	assert.Equal(t, int64(10), total)
 	assert.Equal(t, len(result), 17)
 
-	pagination.Paginate(TestAdapter{err: errors.New("test")}, &result, &total)
+	_ = pagination.Paginate(TestAdapter{err: errors.New("test")}, &result, &total)
 
 	assert.Equal(t, int64(10), total)
 	assert.Equal(t, len(result), 17)
