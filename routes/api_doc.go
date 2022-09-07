@@ -36,7 +36,7 @@ func (a *ApiDoc) Middlewares() []middlewares.Middleware {
 
 func (a *ApiDoc) Handle(w http.ResponseWriter, r *http.Request, _ map[string]string) {
 	if !a.Debug {
-		w.Write([]byte("Api doc not available"))
+		_, _ = w.Write([]byte("Api doc not available"))
 
 		return
 	}

@@ -45,7 +45,7 @@ func (g *GormAdapter) CreateAdapter(ctx context.Context, paginator paginations.P
 		loggers.Logger.Debug(ctx, log.String())
 	}
 
-	g.Dispatcher.Dispatch(events.PaginationEvent.String(), &event)
+	_ = g.Dispatcher.Dispatch(events.PaginationEvent.String(), &event)
 
 	var total int64
 	event.Query.Count(&total)

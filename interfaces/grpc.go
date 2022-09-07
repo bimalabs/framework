@@ -48,19 +48,12 @@ func (g *GRpc) Run(ctx context.Context, servers []configs.Server) {
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(streams...)),
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(unaries...)),
 	)
-	go func() {
-		select {
-		case <-ctx.Done():
-			gRpc.Stop()
-		}
-
-	}()
 
 	for _, server := range servers {
 		server.Register(gRpc)
 	}
 
-	gRpc.Serve(listen)
+	_ = gRpc.Serve(listen)
 }
 
 func (g *GRpc) IsBackground() bool {

@@ -38,7 +38,7 @@ func (m *MuxRouter) Handle(context context.Context, server *runtime.ServeMux, cl
 			path = m.ApiPrefix + path
 		}
 
-		server.HandlePath(route.Method(), path, func(w http.ResponseWriter, r *http.Request, params map[string]string) {
+		_ = server.HandlePath(route.Method(), path, func(w http.ResponseWriter, r *http.Request, params map[string]string) {
 			if !m.Debug {
 				for _, middleware := range route.Middlewares() {
 					if stop := middleware.Attach(r, w); stop {

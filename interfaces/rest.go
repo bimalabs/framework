@@ -27,7 +27,7 @@ func (r *Rest) Run(ctx context.Context, servers []configs.Server) {
 	httpAddress.WriteString(":")
 	httpAddress.WriteString(strconv.Itoa(r.HttpPort))
 
-	http.ListenAndServe(httpAddress.String(), r.Middleware.Attach(r.Router.Handle(context.Background(), http.NewServeMux(), r.GRpcClient)))
+	_ = http.ListenAndServe(httpAddress.String(), r.Middleware.Attach(r.Router.Handle(context.Background(), http.NewServeMux(), r.GRpcClient)))
 }
 
 func (r *Rest) IsBackground() bool {

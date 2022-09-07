@@ -8,6 +8,7 @@ import (
 	mocks "github.com/bimalabs/framework/v4/mocks/routers"
 	"github.com/stretchr/testify/mock"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func Test_Router(t *testing.T) {
@@ -30,7 +31,7 @@ func Test_Router(t *testing.T) {
 	}
 
 	endpoint := "0.0.0.0:111"
-	conn, _ := grpc.DialContext(ctx, endpoint, grpc.WithInsecure())
+	conn, _ := grpc.DialContext(ctx, endpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	factory.Sort()
 	factory.Handle(ctx, http.NewServeMux(), conn)

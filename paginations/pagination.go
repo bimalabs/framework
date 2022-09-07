@@ -2,9 +2,10 @@ package paginations
 
 import (
 	"context"
-	"strings"
 
 	"github.com/vcraescu/go-paginator/v2"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 type (
@@ -65,7 +66,7 @@ func (p *Pagination) Handle(request Request) {
 			continue
 		}
 
-		p.Filters = append(p.Filters, Filter{Field: strings.Title(v), Value: request.Values[k]})
+		p.Filters = append(p.Filters, Filter{Field: cases.Title(language.English).String(v), Value: request.Values[k]})
 	}
 }
 

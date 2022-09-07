@@ -50,7 +50,7 @@ func (mg *MongodbAdapter) CreateAdapter(ctx context.Context, paginator paginatio
 		loggers.Logger.Debug(ctx, log.String())
 	}
 
-	mg.Dispatcher.Dispatch(events.PaginationEvent.String(), &event)
+	_ = mg.Dispatcher.Dispatch(events.PaginationEvent.String(), &event)
 
 	return newMongodbPaginator(ctx, event.Query, event.MongoDbFilter)
 }

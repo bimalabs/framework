@@ -15,6 +15,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func Test_Mux_Router(t *testing.T) {
@@ -24,7 +25,7 @@ func Test_Mux_Router(t *testing.T) {
 	defer cancel()
 
 	endpoint := "0.0.0.0:111"
-	conn, _ := grpc.DialContext(ctx, endpoint, grpc.WithInsecure())
+	conn, _ := grpc.DialContext(ctx, endpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	server := runtime.NewServeMux()
 

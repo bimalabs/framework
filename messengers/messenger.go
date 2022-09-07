@@ -29,7 +29,7 @@ func New(debug bool, broker Broker) *Messenger {
 }
 
 func (m *Messenger) Publish(queueName string, data []byte) error {
-	ctx := context.WithValue(context.Background(), "scope", "messenger")
+	ctx := context.WithValue(context.Background(), loggers.ScopeKey, "messenger")
 	if m.broker == nil {
 		loggers.Logger.Error(ctx, "broker not configured properly")
 
@@ -54,7 +54,7 @@ func (m *Messenger) Publish(queueName string, data []byte) error {
 }
 
 func (m *Messenger) Consume(queueName string) (<-chan *message.Message, error) {
-	ctx := context.WithValue(context.Background(), "scope", "messenger")
+	ctx := context.WithValue(context.Background(), loggers.ScopeKey, "messenger")
 	if m.broker == nil {
 		loggers.Logger.Error(ctx, "broker not configured properly")
 

@@ -57,7 +57,7 @@ func (es *ElasticsearchAdapter) CreateAdapter(ctx context.Context, paginator pag
 	index.WriteString("_")
 	index.WriteString(paginator.Table)
 
-	es.Dispatcher.Dispatch(events.PaginationEvent.String(), &event)
+	_ = es.Dispatcher.Dispatch(events.PaginationEvent.String(), &event)
 
 	return newElasticsearchPaginator(ctx, es.Client, index.String(), paginator.Model, event.Query)
 }
@@ -98,7 +98,7 @@ func (es *elasticsearchPaginator) Slice(offset int, length int, data interface{}
 	records := make([]map[string]interface{}, 0, result.TotalHits())
 	var record map[string]interface{}
 	for _, hit := range result.Hits.Hits {
-		json.Unmarshal(hit.Source, &record)
+		_ = json.Unmarshal(hit.Source, &record)
 		records = append(records, record)
 	}
 
