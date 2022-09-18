@@ -9,7 +9,7 @@ require (
 	github.com/ThreeDotsLabs/watermill-kafka/v2 v2.2.2
 	github.com/allegro/bigcache/v3 v3.0.2
 	github.com/fatih/color v1.13.0
-	github.com/go-playground/validator/v10 v10.11.0
+	github.com/go-playground/validator/v10 v10.11.1
 	github.com/goccy/go-json v0.9.7
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
@@ -17,7 +17,7 @@ require (
 	github.com/iancoleman/strcase v0.2.0
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/kamva/mgm/v3 v3.4.1
-	github.com/klauspost/compress v1.15.9 // indirect
+	github.com/klauspost/compress v1.15.10 // indirect
 	github.com/montanaflynn/stats v0.6.6 // indirect
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/sarulabs/dingo/v4 v4.0.2
@@ -29,11 +29,11 @@ require (
 	golang.org/x/crypto v0.0.0-20220829220503-c86fa9a7ed90 // indirect
 	golang.org/x/net v0.0.0-20220909164309-bea034e7d591
 	golang.org/x/sync v0.0.0-20220907140024-f12130a52804 // indirect
-	golang.org/x/sys v0.0.0-20220913120320-3275c407cedc // indirect
+	golang.org/x/sys v0.0.0-20220915200043-7b5979e65e41 // indirect
 	golang.org/x/text v0.3.7
-	google.golang.org/genproto v0.0.0-20220909194730-69f6226f97e5 // indirect
+	google.golang.org/genproto v0.0.0-20220916172020-2692e8806bfa // indirect
 	google.golang.org/grpc v1.49.0
 	gorm.io/driver/mysql v1.3.4
 	gorm.io/driver/postgres v1.3.7
-	gorm.io/gorm v1.23.8
+	gorm.io/gorm v1.23.9
 )
