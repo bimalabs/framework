@@ -22,7 +22,7 @@ func (g *GRpcGateway) Handle(ctx context.Context, server *runtime.ServeMux, clie
 	for _, handler := range g.servers {
 		err := handler.Handle(ctx, server, client)
 		if err != nil {
-			loggers.Logger.Fatal(cLog, err.Error())
+			loggers.Logger.Error(cLog, err.Error())
 
 			break
 		}
