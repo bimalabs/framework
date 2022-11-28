@@ -1,5 +1,8 @@
 version: '3'
 tasks:
+    lint:
+        cmds:
+          - golangci-lint run
     test:
         cmds:
             - go test -coverprofile /tmp/coverage ./... -v

@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"context"
 	"time"
 
 	"github.com/allegro/bigcache/v3"
@@ -11,7 +12,7 @@ type Cache struct {
 }
 
 func NewCache(lifetime time.Duration) *Cache {
-	cache, _ := bigcache.NewBigCache(bigcache.DefaultConfig(lifetime))
+	cache, _ := bigcache.New(context.Background(), bigcache.DefaultConfig(lifetime))
 
 	return &Cache{pool: cache}
 }
