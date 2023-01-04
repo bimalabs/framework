@@ -3,6 +3,8 @@ package utils
 import (
 	"testing"
 
+	"github.com/bimalabs/framework/v4/events"
+	"github.com/bimalabs/framework/v4/loggers"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -12,11 +14,16 @@ type Data struct {
 }
 
 func Test_Validator(t *testing.T) {
+	loggers.Default("test")
+
+	dispatcher := events.Dispatcher{}
+	validator := Validator(true, &dispatcher)
+
 	data1 := Data{
 		ID: "test",
 	}
 
-	msg, err := Validate(&data1)
+	msg, err := validator.Validate(&data1)
 
 	assert.NotNil(t, err)
 	assert.NotEmpty(t, msg)
@@ -26,7 +33,7 @@ func Test_Validator(t *testing.T) {
 		Name: "test",
 	}
 
-	msg, err = Validate(&data2)
+	msg, err = validator.Validate(&data2)
 
 	assert.Nil(t, err)
 	assert.Empty(t, msg)
