@@ -92,11 +92,11 @@ func (_m *Handler) FindBy(v interface{}, filters ...repositories.Filter) error {
 }
 
 // Paginate provides a mock function with given fields: paginator, result
-func (_m *Handler) Paginate(paginator paginations.Pagination, result interface{}) paginations.Metadata {
+func (_m *Handler) Paginate(paginator *paginations.Pagination, result interface{}) paginations.Metadata {
 	ret := _m.Called(paginator, result)
 
 	var r0 paginations.Metadata
-	if rf, ok := ret.Get(0).(func(paginations.Pagination, interface{}) paginations.Metadata); ok {
+	if rf, ok := ret.Get(0).(func(*paginations.Pagination, interface{}) paginations.Metadata); ok {
 		r0 = rf(paginator, result)
 	} else {
 		r0 = ret.Get(0).(paginations.Metadata)

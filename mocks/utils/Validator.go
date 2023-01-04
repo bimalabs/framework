@@ -9,20 +9,20 @@ type Validator struct {
 	mock.Mock
 }
 
-// Validate provides a mock function with given fields:
-func (_m *Validator) Validate() (string, error) {
-	ret := _m.Called()
+// Validate provides a mock function with given fields: object
+func (_m *Validator) Validate(object interface{}) (string, error) {
+	ret := _m.Called(object)
 
 	var r0 string
-	if rf, ok := ret.Get(0).(func() string); ok {
-		r0 = rf()
+	if rf, ok := ret.Get(0).(func(interface{}) string); ok {
+		r0 = rf(object)
 	} else {
 		r0 = ret.Get(0).(string)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func() error); ok {
-		r1 = rf()
+	if rf, ok := ret.Get(1).(func(interface{}) error); ok {
+		r1 = rf(object)
 	} else {
 		r1 = ret.Error(1)
 	}

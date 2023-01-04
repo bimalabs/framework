@@ -78,6 +78,27 @@ func (_m *Module) Paginator() *paginations.Pagination {
 	return r0
 }
 
+// Validate provides a mock function with given fields: v
+func (_m *Module) Validate(v interface{}) (string, error) {
+	ret := _m.Called(v)
+
+	var r0 string
+	if rf, ok := ret.Get(0).(func(interface{}) string); ok {
+		r0 = rf(v)
+	} else {
+		r0 = ret.Get(0).(string)
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(interface{}) error); ok {
+		r1 = rf(v)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 type mockConstructorTestingTNewModule interface {
 	mock.TestingT
 	Cleanup(func())
