@@ -223,13 +223,8 @@ var Application = []dingo.Def{
 			env *configs.Env,
 			handler handlers.Handler,
 			cache *utils.Cache,
-		) (*bima.Module, error) {
-			return &bima.Module{
-				Debug:     env.Debug,
-				Handler:   handler,
-				Cache:     cache,
-				Paginator: &paginations.Pagination{},
-			}, nil
+		) (bima.Module, error) {
+			return bima.NewModule(env.Debug, handler, cache, &paginations.Pagination{}), nil
 		},
 		Params: dingo.Params{
 			"0": dingo.Service("bima:config"),

@@ -18,6 +18,12 @@ type (
 		Repository repositories.Repository
 	}
 
+	Validation struct {
+		Data    interface{}
+		IsError bool
+		Message string
+	}
+
 	ElasticsearchPagination struct {
 		Query   *elastic.BoolQuery
 		Filters []paginations.Filter
@@ -37,9 +43,11 @@ type (
 
 const (
 	PaginationEvent   = Event("pagination")
+	BeforeValidation  = Event("before_validation")
 	BeforeCreateEvent = Event("before_create")
 	BeforeUpdateEvent = Event("before_update")
 	BeforeDeleteEvent = Event("before_delete")
+	AfterValidation   = Event("after_validation")
 	AfterCreateEvent  = Event("after_create")
 	AfterUpdateEvent  = Event("after_update")
 	AfterDeleteEvent  = Event("after_delete")
