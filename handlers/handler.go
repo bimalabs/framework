@@ -19,7 +19,7 @@ type (
 	}
 
 	Handler interface {
-		Paginate(paginator paginations.Pagination, result interface{}) paginations.Metadata
+		Paginate(paginator *paginations.Pagination, result interface{}) paginations.Metadata
 		Create(v interface{}) error
 		Update(v interface{}, id string) error
 		Bind(v interface{}, id string) error
@@ -39,10 +39,10 @@ func New(debug bool, dispatcher *events.Dispatcher, repository repositories.Repo
 	}
 }
 
-func (h *handler) Paginate(paginator paginations.Pagination, result interface{}) paginations.Metadata {
+func (h *handler) Paginate(paginator *paginations.Pagination, result interface{}) paginations.Metadata {
 	ctx := context.WithValue(context.Background(), loggers.ScopeKey, "handler")
 
-	adapter := h.adapter.CreateAdapter(ctx, paginator)
+	adapter := h.adapter.CreateAdapter(ctx, *paginator)
 	if adapter == nil {
 		loggers.Logger.Error(ctx, "error when creating adapter")
 

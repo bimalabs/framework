@@ -217,19 +217,32 @@ var Application = []dingo.Def{
 		},
 	},
 	{
+		Name:  "bima:validator",
+		Scope: bima.Application,
+		Build: func(env *configs.Env, dispatcher *events.Dispatcher) (utils.Validator, error) {
+			return utils.NewValidator(env.Debug, dispatcher), nil
+		},
+		Params: dingo.Params{
+			"0": dingo.Service("bima:config"),
+			"1": dingo.Service("bima:event:dispatcher"),
+		},
+	},
+	{
 		Name:  "bima:module",
 		Scope: bima.Application,
 		Build: func(
 			env *configs.Env,
 			handler handlers.Handler,
 			cache *utils.Cache,
+			validator utils.Validator,
 		) (bima.Module, error) {
-			return bima.NewModule(env.Debug, handler, cache, &paginations.Pagination{}), nil
+			return bima.NewModule(env.Debug, handler, cache, validator, &paginations.Pagination{}), nil
 		},
 		Params: dingo.Params{
 			"0": dingo.Service("bima:config"),
 			"1": dingo.Service("bima:handler"),
 			"2": dingo.Service("bima:cache:memory"),
+			"3": dingo.Service("bima:validator"),
 		},
 	},
 	{

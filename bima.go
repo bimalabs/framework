@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	Version = "v4.3.0"
+	Version = "v4.3.1"
 
 	HighestPriority = 255
 	LowestPriority  = -255
@@ -26,6 +26,7 @@ type (
 		Handler() handlers.Handler
 		Cache() *utils.Cache
 		Paginator() *paginations.Pagination
+		Validate(v interface{}) (string, error)
 	}
 
 	module struct {
@@ -33,6 +34,7 @@ type (
 		handler   handlers.Handler
 		cache     *utils.Cache
 		paginator *paginations.Pagination
+		validator utils.Validator
 	}
 
 	GormModel struct {
@@ -44,12 +46,13 @@ type (
 	}
 )
 
-func NewModule(debug bool, handler handlers.Handler, cache *utils.Cache, paginator *paginations.Pagination) Module {
+func NewModule(debug bool, handler handlers.Handler, cache *utils.Cache, validator utils.Validator, paginator *paginations.Pagination) Module {
 	return &module{
 		debug:     debug,
 		handler:   handler,
 		cache:     cache,
 		paginator: paginator,
+		validator: validator,
 	}
 }
 
@@ -67,6 +70,10 @@ func (m *module) Cache() *utils.Cache {
 
 func (m *module) Paginator() *paginations.Pagination {
 	return m.paginator
+}
+
+func (m *module) Validate(v interface{}) (string, error) {
+	return m.validator.Validate(v)
 }
 
 func NewModel() GormModel {

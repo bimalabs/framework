@@ -17,7 +17,7 @@ func Test_Validator(t *testing.T) {
 	loggers.Default("test")
 
 	dispatcher := events.Dispatcher{}
-	validator := Validator(true, &dispatcher)
+	validator := NewValidator(true, &dispatcher)
 
 	data1 := Data{
 		ID: "test",

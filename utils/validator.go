@@ -12,13 +12,17 @@ import (
 )
 
 type (
+	Validator interface {
+		Validate(object interface{}) (string, error)
+	}
+
 	validator struct {
 		debug      bool
 		dispatcher *events.Dispatcher
 	}
 )
 
-func Validator(debug bool, dispatcher *events.Dispatcher) *validator {
+func NewValidator(debug bool, dispatcher *events.Dispatcher) Validator {
 	return &validator{debug: debug, dispatcher: dispatcher}
 }
 
