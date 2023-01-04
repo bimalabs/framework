@@ -21,11 +21,18 @@ const (
 )
 
 type (
-	Module struct {
-		Debug     bool
-		Handler   handlers.Handler
-		Cache     *utils.Cache
-		Paginator *paginations.Pagination
+	Module interface {
+		Debug() bool
+		Handler() handlers.Handler
+		Cache() *utils.Cache
+		Paginator() *paginations.Pagination
+	}
+
+	module struct {
+		debug     bool
+		handler   handlers.Handler
+		cache     *utils.Cache
+		paginator *paginations.Pagination
 	}
 
 	GormModel struct {
@@ -36,6 +43,31 @@ type (
 		Debug bool
 	}
 )
+
+func NewModule(debug bool, handler handlers.Handler, cache *utils.Cache, paginator *paginations.Pagination) Module {
+	return &module{
+		debug:     debug,
+		handler:   handler,
+		cache:     cache,
+		paginator: paginator,
+	}
+}
+
+func (m *module) Debug() bool {
+	return m.debug
+}
+
+func (m *module) Handler() handlers.Handler {
+	return m.handler
+}
+
+func (m *module) Cache() *utils.Cache {
+	return m.cache
+}
+
+func (m *module) Paginator() *paginations.Pagination {
+	return m.paginator
+}
 
 func NewModel() GormModel {
 	return GormModel{
