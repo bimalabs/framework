@@ -67,94 +67,14 @@ func (m *Factory) Sort() {
 }
 
 func (m *Factory) Attach(handler http.Handler) http.Handler {
-	ctx := context.WithValue(context.Background(), loggers.ScopeKey, "middleware")
 	internal := http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
-		start := time.Now()
 		if !m.Debug {
-			for _, middleware := range m.middlewares {
-				if stop := middleware.Attach(request, response); stop {
-					return
-				}
-			}
-
-			handler.ServeHTTP(response, request)
-
-			elapsed := time.Since(start)
-
-			var execution strings.Builder
-			execution.WriteString("Execution time: ")
-			execution.WriteString(elapsed.String())
-
-			fmt.Println(execution.String())
+			m.handle(handler, response, request)
 
 			return
 		}
 
-		wrapper := responseWrapper{ResponseWriter: response}
-		for _, middleware := range m.middlewares {
-			if stop := middleware.Attach(request, response); stop {
-				var stopper strings.Builder
-				stopper.WriteString("Middleware stopped by: ")
-				stopper.WriteString(reflect.TypeOf(middleware).Elem().Name())
-
-				loggers.Logger.Debug(ctx, stopper.String())
-
-				return
-			}
-		}
-
-		handler.ServeHTTP(&wrapper, request)
-
-		elapsed := time.Since(start)
-
-		var statusCode string
-		uri, _ := url.QueryUnescape(request.RequestURI)
-		mGet := color.New(color.BgGreen, color.FgBlack)
-		mPost := color.New(color.BgYellow, color.FgBlack)
-		mPut := color.New(color.BgCyan, color.FgBlack)
-		mDelete := color.New(color.BgRed, color.FgBlack)
-
-		switch request.Method {
-		case http.MethodPost:
-			mPost.Print("[POST]")
-		case http.MethodPatch:
-			mPost.Print("[PATCH]")
-		case http.MethodPut:
-			mPut.Print("[PUT]")
-		case http.MethodDelete:
-			mDelete.Print("[DELETE]")
-		default:
-			mGet.Print("[GET]")
-		}
-
-		switch {
-		case wrapper.StatusCode() < 300:
-			statusCode = color.New(color.FgGreen, color.Bold).Sprintf("%d", wrapper.StatusCode())
-		case wrapper.StatusCode() < 400:
-			statusCode = color.New(color.FgYellow, color.Bold).Sprintf("%d", wrapper.StatusCode())
-		default:
-			statusCode = color.New(color.FgRed, color.Bold).Sprintf("%d", wrapper.StatusCode())
-		}
-
-		var elapsedString string
-		switch {
-		case elapsed.Seconds() < 1.00:
-			elapsedString = color.New(color.FgGreen, color.Bold).Sprint(elapsed)
-		case elapsed.Seconds() < 5.00:
-			elapsedString = color.New(color.FgYellow, color.Bold).Sprint(elapsed)
-		case elapsed.Seconds() > 5.00:
-			elapsedString = color.New(color.FgRed, color.Bold).Sprint(elapsed)
-		}
-
-		var stdLog strings.Builder
-		stdLog.WriteString("\t")
-		stdLog.WriteString(statusCode)
-		stdLog.WriteString("\t")
-		stdLog.WriteString(elapsedString)
-		stdLog.WriteString("\t")
-		stdLog.WriteString(uri)
-
-		fmt.Println(stdLog.String())
+		m.handleDebug(handler, response, request)
 	})
 
 	deflateEncoder, _ := zlib.New(zlib.Options{})
@@ -174,4 +94,95 @@ func (m *Factory) Attach(handler http.Handler) http.Handler {
 	)
 
 	return compress(internal)
+}
+
+func (m *Factory) handle(handler http.Handler, response http.ResponseWriter, request *http.Request) {
+	start := time.Now()
+	for _, middleware := range m.middlewares {
+		if stop := middleware.Attach(request, response); stop {
+			return
+		}
+	}
+
+	handler.ServeHTTP(response, request)
+
+	elapsed := time.Since(start)
+
+	var execution strings.Builder
+	execution.WriteString("Execution time: ")
+	execution.WriteString(elapsed.String())
+
+	fmt.Println(execution.String())
+
+	return
+}
+
+func (m *Factory) handleDebug(handler http.Handler, response http.ResponseWriter, request *http.Request) {
+	ctx := context.WithValue(context.Background(), loggers.ScopeKey, "middleware")
+	start := time.Now()
+	wrapper := responseWrapper{ResponseWriter: response}
+	for _, middleware := range m.middlewares {
+		if stop := middleware.Attach(request, response); stop {
+			var stopper strings.Builder
+			stopper.WriteString("Middleware stopped by: ")
+			stopper.WriteString(reflect.TypeOf(middleware).Elem().Name())
+
+			loggers.Logger.Debug(ctx, stopper.String())
+
+			return
+		}
+	}
+
+	handler.ServeHTTP(&wrapper, request)
+
+	elapsed := time.Since(start)
+
+	var statusCode string
+	uri, _ := url.QueryUnescape(request.RequestURI)
+	mGet := color.New(color.BgGreen, color.FgBlack)
+	mPost := color.New(color.BgYellow, color.FgBlack)
+	mPut := color.New(color.BgCyan, color.FgBlack)
+	mDelete := color.New(color.BgRed, color.FgBlack)
+
+	switch request.Method {
+	case http.MethodPost:
+		mPost.Print("[POST]")
+	case http.MethodPatch:
+		mPost.Print("[PATCH]")
+	case http.MethodPut:
+		mPut.Print("[PUT]")
+	case http.MethodDelete:
+		mDelete.Print("[DELETE]")
+	default:
+		mGet.Print("[GET]")
+	}
+
+	switch {
+	case wrapper.StatusCode() < 300:
+		statusCode = color.New(color.FgGreen, color.Bold).Sprintf("%d", wrapper.StatusCode())
+	case wrapper.StatusCode() < 400:
+		statusCode = color.New(color.FgYellow, color.Bold).Sprintf("%d", wrapper.StatusCode())
+	default:
+		statusCode = color.New(color.FgRed, color.Bold).Sprintf("%d", wrapper.StatusCode())
+	}
+
+	var elapsedString string
+	switch {
+	case elapsed.Seconds() < 1.00:
+		elapsedString = color.New(color.FgGreen, color.Bold).Sprint(elapsed)
+	case elapsed.Seconds() < 5.00:
+		elapsedString = color.New(color.FgYellow, color.Bold).Sprint(elapsed)
+	case elapsed.Seconds() > 5.00:
+		elapsedString = color.New(color.FgRed, color.Bold).Sprint(elapsed)
+	}
+
+	var stdLog strings.Builder
+	stdLog.WriteString("\t")
+	stdLog.WriteString(statusCode)
+	stdLog.WriteString("\t")
+	stdLog.WriteString(elapsedString)
+	stdLog.WriteString("\t")
+	stdLog.WriteString(uri)
+
+	fmt.Println(stdLog.String())
 }

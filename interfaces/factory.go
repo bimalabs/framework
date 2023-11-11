@@ -38,11 +38,13 @@ func (f *Factory) Run(servers []configs.Server) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	for _, application := range f.applications {
-		if application.IsBackground() {
-			go application.Run(ctx, servers)
-		} else {
+		if !application.IsBackground() {
 			time.Sleep(100 * time.Millisecond)
 			application.Run(ctx, servers)
+
+			continue
 		}
+
+		go application.Run(ctx, servers)
 	}
 }
