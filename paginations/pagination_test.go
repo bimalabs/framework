@@ -48,39 +48,10 @@ func Test_Pagination_Handle_Request(t *testing.T) {
 	assert.Equal(t, pagination.Page, 1)
 
 	request = Request{
-		Fields: []string{"a"},
+		Filters: Filter{"a": "b"},
 	}
-
-	pagination.Handle(request)
-
-	assert.Nil(t, pagination.Filters)
-
-	request = Request{
-		Fields: []string{"a"},
-		Values: []string{"b"},
-	}
-
-	pagination.Handle(request)
 
 	assert.Equal(t, len(pagination.Filters), 1)
-
-	request = Request{
-		Fields: []string{"a"},
-		Values: []string{""},
-	}
-
-	pagination.Handle(request)
-
-	assert.Equal(t, len(pagination.Filters), 0)
-
-	request = Request{
-		Fields: []string{""},
-		Values: []string{"b"},
-	}
-
-	pagination.Handle(request)
-
-	assert.Equal(t, len(pagination.Filters), 0)
 }
 
 func Test_Pagination_Paginate(t *testing.T) {

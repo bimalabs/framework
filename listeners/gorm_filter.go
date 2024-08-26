@@ -17,14 +17,15 @@ func (p *GormFilter) Handle(event interface{}) interface{} {
 
 	var likeClausal strings.Builder
 	var likeValue strings.Builder
-	for _, v := range e.Filters {
+
+	for k, v := range e.Filters {
 		likeClausal.Reset()
-		likeClausal.WriteString(v.Field)
+		likeClausal.WriteString(k)
 		likeClausal.WriteString(" LIKE ?")
 
 		likeValue.Reset()
 		likeValue.WriteString("%")
-		likeValue.WriteString(v.Value)
+		likeValue.WriteString(v)
 		likeValue.WriteString("%")
 
 		e.Query.Where(likeClausal.String(), likeValue.String())

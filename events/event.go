@@ -26,18 +26,18 @@ type (
 
 	ElasticsearchPagination struct {
 		Query   *elastic.BoolQuery
-		Filters []paginations.Filter
+		Filters paginations.Filter
 	}
 
 	MongodbPagination struct {
 		Query         *mgm.Collection
-		Filters       []paginations.Filter
+		Filters       paginations.Filter
 		MongoDbFilter bson.M
 	}
 
 	GormPagination struct {
 		Query   *gorm.DB
-		Filters []paginations.Filter
+		Filters paginations.Filter
 	}
 )
 

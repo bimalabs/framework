@@ -19,10 +19,10 @@ func (p *MongoDbFilter) Handle(event interface{}) interface{} {
 	}
 
 	bFilters := bson.M{}
-	for _, f := range e.Filters {
-		bFilters[strings.ToLower(f.Field)] = bson.M{
+	for k, v := range e.Filters {
+		bFilters[strings.ToLower(k)] = bson.M{
 			operator.Regex: primitive.Regex{
-				Pattern: f.Value,
+				Pattern: v,
 				Options: "im",
 			},
 		}
