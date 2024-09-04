@@ -32,7 +32,7 @@ func (v *validator) Validate(object interface{}) (string, error) {
 	var message strings.Builder
 	if v.debug {
 		message.WriteString("dispatching ")
-		message.WriteString(events.BeforeCreateEvent.String())
+		message.WriteString(events.BeforeValidation.String())
 
 		loggers.Logger.Debug(ctx, message.String())
 	}
