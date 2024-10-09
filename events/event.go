@@ -25,17 +25,20 @@ type (
 	}
 
 	ElasticsearchPagination struct {
+		Model   interface{}
 		Query   *elastic.BoolQuery
 		Filters paginations.Filter
 	}
 
 	MongodbPagination struct {
+		Model         interface{}
 		Query         *mgm.Collection
 		Filters       paginations.Filter
 		MongoDbFilter bson.M
 	}
 
 	GormPagination struct {
+		Model   interface{}
 		Query   *gorm.DB
 		Filters paginations.Filter
 	}

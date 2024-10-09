@@ -37,6 +37,7 @@ func (mg *MongodbAdapter) CreateAdapter(ctx context.Context, paginator paginatio
 
 	query := mgm.Coll(model)
 	event := events.MongodbPagination{
+		Model:         paginator.Model,
 		Query:         query,
 		Filters:       paginator.Filters,
 		MongoDbFilter: bson.M{},

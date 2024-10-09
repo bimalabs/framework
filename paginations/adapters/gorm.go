@@ -33,6 +33,7 @@ func (g *GormAdapter) CreateAdapter(ctx context.Context, paginator paginations.P
 
 	query := configs.Database.Model(paginator.Model)
 	event := events.GormPagination{
+		Model:   paginator.Model,
 		Query:   query,
 		Filters: paginator.Filters,
 	}
