@@ -1,7 +1,6 @@
 package routers
 
 import (
-	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -21,11 +20,15 @@ import (
 func Test_Mux_Router(t *testing.T) {
 	loggers.Default("test")
 
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx := t.Context()
 
 	endpoint := "0.0.0.0:111"
-	conn, _ := grpc.DialContext(ctx, endpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient(endpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Cleanup(func() { _ = conn.Close() })
 
 	server := runtime.NewServeMux()
 
@@ -42,7 +45,7 @@ func Test_Mux_Router(t *testing.T) {
 	assert.Equal(t, -255, router.Priority())
 	assert.Equal(t, 1, len(router.routes))
 
-	router.Handle(context.TODO(), server, conn)
+	router.Handle(ctx, server, conn)
 
 	req := httptest.NewRequest("GET", "http://bima.framework/api/without-middleware", nil)
 	w := httptest.NewRecorder()
@@ -67,7 +70,7 @@ func Test_Mux_Router(t *testing.T) {
 	assert.Equal(t, -255, router.Priority())
 	assert.Equal(t, 1, len(router.routes))
 
-	router.Handle(context.TODO(), server, conn)
+	router.Handle(ctx, server, conn)
 
 	req = httptest.NewRequest("GET", "http://bima.framework/api/middleware", nil)
 	w = httptest.NewRecorder()
@@ -91,7 +94,7 @@ func Test_Mux_Router(t *testing.T) {
 	assert.Equal(t, -255, router.Priority())
 	assert.Equal(t, 1, len(router.routes))
 
-	router.Handle(context.TODO(), server, conn)
+	router.Handle(ctx, server, conn)
 
 	req = httptest.NewRequest("GET", "http://bima.framework/api/middleware-stop", nil)
 	w = httptest.NewRecorder()
@@ -118,7 +121,7 @@ func Test_Mux_Router(t *testing.T) {
 	assert.Equal(t, -255, router.Priority())
 	assert.Equal(t, 1, len(router.routes))
 
-	router.Handle(context.TODO(), server, conn)
+	router.Handle(ctx, server, conn)
 
 	req = httptest.NewRequest("GET", "http://bima.framework/api/middleware-stop", nil)
 	w = httptest.NewRecorder()
@@ -146,7 +149,7 @@ func Test_Mux_Router(t *testing.T) {
 	assert.Equal(t, -255, router.Priority())
 	assert.Equal(t, 1, len(router.routes))
 
-	router.Handle(context.TODO(), server, conn)
+	router.Handle(ctx, server, conn)
 
 	req = httptest.NewRequest("GET", "http://bima.framework/api/middleware-stop", nil)
 	w = httptest.NewRecorder()

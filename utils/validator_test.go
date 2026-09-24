@@ -26,7 +26,7 @@ func Test_Validator(t *testing.T) {
 	msg, err := validator.Validate(&data1)
 
 	assert.NotNil(t, err)
-	assert.NotEmpty(t, msg)
+	assert.Equal(t, "name is required", msg)
 
 	data2 := Data{
 		ID:   "test",
@@ -37,4 +37,16 @@ func Test_Validator(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Empty(t, msg)
+}
+
+func TestValidatorFieldName(t *testing.T) {
+	dispatcher := events.Dispatcher{}
+	validator := NewValidator(false, &dispatcher)
+	data := struct {
+		JSONData2 string `validate:"required"`
+	}{}
+
+	msg, err := validator.Validate(&data)
+	assert.Error(t, err)
+	assert.Equal(t, "json_data_2 is required", msg)
 }

@@ -15,8 +15,8 @@ import (
 
 type (
 	MongodbAdapter struct {
-		Debug      bool
 		Dispatcher *events.Dispatcher
+		Debug      bool
 	}
 
 	mongodbPaginator struct {
@@ -71,7 +71,7 @@ func (mg *mongodbPaginator) Nums() (int64, error) {
 	return mg.totalQuery.CountDocuments(mg.context, mg.filter)
 }
 
-func (mg *mongodbPaginator) Slice(offset int, length int, data interface{}) error {
+func (mg *mongodbPaginator) Slice(offset int, length int, data any) error {
 	skip := int64(offset)
 	limit := int64(length)
 	options := &options.FindOptions{

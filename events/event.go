@@ -13,32 +13,32 @@ type (
 	Event string
 
 	Model struct {
-		Data       interface{}
-		Id         string
+		Data       any
 		Repository repositories.Repository
+		Id         string
 	}
 
 	Validation struct {
-		Data    interface{}
-		IsError bool
+		Data    any
 		Message string
+		IsError bool
 	}
 
 	ElasticsearchPagination struct {
-		Model   interface{}
+		Model   any
 		Query   *elastic.BoolQuery
 		Filters paginations.Filter
 	}
 
 	MongodbPagination struct {
-		Model         interface{}
+		Model         any
 		Query         *mgm.Collection
 		Filters       paginations.Filter
 		MongoDbFilter bson.M
 	}
 
 	GormPagination struct {
-		Model   interface{}
+		Model   any
 		Query   *gorm.DB
 		Filters paginations.Filter
 	}

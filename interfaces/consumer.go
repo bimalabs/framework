@@ -1,9 +1,10 @@
 package interfaces
 
 import (
+	"context"
+
 	"github.com/bimalabs/framework/v4/configs"
 	"github.com/bimalabs/framework/v4/messengers"
-	"golang.org/x/net/context"
 )
 
 type Consumer struct {

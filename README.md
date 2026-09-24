@@ -34,9 +34,19 @@ Bima Framework utilize [gRPC Gateway](https://grpc-ecosystem.github.io/grpc-gate
 
 - Easy to Custom
 
+### In-memory cache
+
+The cache uses Ristretto v2 with a 64 MiB cost budget, including key/value bytes
+and Ristretto entry overhead. This is not a limit on total process memory.
+`NewCache` keeps a minimum TTL of one second. `Set` waits for queued writes,
+but new entries can still be rejected by Ristretto's admission policy or cost
+limit. Treat a cache miss as normal. Values are copied on write and read.
+Call `Close` for manually created caches; the DI definition closes its cache
+when the container is deleted.
+
 ### Requirements
 
-- Go 1.16 or above
+- Go 1.26.8 or above
 
 - Git
 

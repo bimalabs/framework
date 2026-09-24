@@ -13,10 +13,10 @@ import (
 )
 
 type Rest struct {
-	HttpPort   int
 	Middleware *middlewares.Factory
 	Router     *routers.Factory
 	GRpcClient *grpc.ClientConn
+	HttpPort   int
 }
 
 func (r *Rest) Run(ctx context.Context, servers []configs.Server) {

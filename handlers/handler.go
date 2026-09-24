@@ -12,20 +12,20 @@ import (
 
 type (
 	handler struct {
-		debug      bool
-		dispatcher *events.Dispatcher
 		repository repositories.Repository
 		adapter    paginations.Adapter
+		dispatcher *events.Dispatcher
+		debug      bool
 	}
 
 	Handler interface {
-		Paginate(paginator *paginations.Pagination, result interface{}) paginations.Metadata
-		Create(v interface{}) error
-		Update(v interface{}, id string) error
-		Bind(v interface{}, id string) error
-		FindBy(v interface{}, filters ...repositories.Filter) error
-		All(v interface{}) error
-		Delete(v interface{}, id string) error
+		Paginate(paginator *paginations.Pagination, result any) paginations.Metadata
+		Create(v any) error
+		Update(v any, id string) error
+		Bind(v any, id string) error
+		FindBy(v any, filters ...repositories.Filter) error
+		All(v any) error
+		Delete(v any, id string) error
 		Repository() repositories.Repository
 	}
 )
@@ -39,7 +39,7 @@ func New(debug bool, dispatcher *events.Dispatcher, repository repositories.Repo
 	}
 }
 
-func (h *handler) Paginate(paginator *paginations.Pagination, result interface{}) paginations.Metadata {
+func (h *handler) Paginate(paginator *paginations.Pagination, result any) paginations.Metadata {
 	ctx := context.WithValue(context.Background(), loggers.ScopeKey, "handler")
 
 	adapter := h.adapter.CreateAdapter(ctx, *paginator)
@@ -67,7 +67,7 @@ func (h *handler) Paginate(paginator *paginations.Pagination, result interface{}
 	}
 }
 
-func (h *handler) Create(v interface{}) error {
+func (h *handler) Create(v any) error {
 	return h.repository.Transaction(func(r repositories.Repository) error {
 		var log strings.Builder
 		ctx := context.WithValue(context.Background(), loggers.ScopeKey, "handler")
@@ -106,7 +106,7 @@ func (h *handler) Create(v interface{}) error {
 	})
 }
 
-func (h *handler) Update(v interface{}, id string) error {
+func (h *handler) Update(v any, id string) error {
 	return h.repository.Transaction(func(r repositories.Repository) error {
 		var log strings.Builder
 		ctx := context.WithValue(context.Background(), loggers.ScopeKey, "handler")
@@ -146,19 +146,19 @@ func (h *handler) Update(v interface{}, id string) error {
 	})
 }
 
-func (h *handler) Bind(v interface{}, id string) error {
+func (h *handler) Bind(v any, id string) error {
 	return h.repository.Bind(v, id)
 }
 
-func (h *handler) All(v interface{}) error {
+func (h *handler) All(v any) error {
 	return h.repository.All(v)
 }
 
-func (h *handler) FindBy(v interface{}, filters ...repositories.Filter) error {
+func (h *handler) FindBy(v any, filters ...repositories.Filter) error {
 	return h.repository.FindBy(v, filters...)
 }
 
-func (h *handler) Delete(v interface{}, id string) error {
+func (h *handler) Delete(v any, id string) error {
 	return h.repository.Transaction(func(r repositories.Repository) error {
 		var log strings.Builder
 		ctx := context.WithValue(context.Background(), loggers.ScopeKey, "handler")

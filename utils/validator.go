@@ -7,18 +7,18 @@ import (
 
 	"github.com/bimalabs/framework/v4/events"
 	"github.com/bimalabs/framework/v4/loggers"
+	"github.com/bimalabs/framework/v4/utils/strcase"
 	engine "github.com/go-playground/validator/v10"
-	"github.com/iancoleman/strcase"
 )
 
 type (
 	Validator interface {
-		Validate(object interface{}) (string, error)
+		Validate(object any) (string, error)
 	}
 
 	validator struct {
-		debug      bool
 		dispatcher *events.Dispatcher
+		debug      bool
 	}
 )
 
@@ -26,7 +26,7 @@ func NewValidator(debug bool, dispatcher *events.Dispatcher) Validator {
 	return &validator{debug: debug, dispatcher: dispatcher}
 }
 
-func (v *validator) Validate(object interface{}) (string, error) {
+func (v *validator) Validate(object any) (string, error) {
 	ctx := context.WithValue(context.Background(), loggers.ScopeKey, "validator")
 
 	var message strings.Builder

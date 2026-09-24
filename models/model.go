@@ -24,15 +24,15 @@ type (
 	}
 
 	GormBase struct {
-		Id        string `gorm:"type:string;primaryKey;autoIncrement:false"`
+		Env       *configs.Env `gorm:"-:all"`
 		CreatedAt sql.NullTime
 		UpdatedAt sql.NullTime
 		SyncedAt  sql.NullTime
+		DeletedAt gorm.DeletedAt
+		Id        string `gorm:"type:string;primaryKey;autoIncrement:false"`
 		CreatedBy sql.NullString
 		UpdatedBy sql.NullString
-		DeletedAt gorm.DeletedAt
 		DeletedBy sql.NullString
-		Env       *configs.Env `gorm:"-:all"`
 	}
 
 	MongoBase struct {

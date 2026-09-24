@@ -23,23 +23,23 @@ type (
 
 	Db struct {
 		Host     string `json:"host" yaml:"host"`
-		Port     int    `json:"port" yaml:"port"`
 		User     string `json:"user" yaml:"user"`
 		Password string `json:"password" yaml:"password"`
 		Name     string `json:"name" yaml:"name"`
 		Driver   string `json:"driver" yaml:"driver"`
+		Port     int    `json:"port" yaml:"port"`
 	}
 
 	Env struct {
-		Debug         bool   `json:"debug" yaml:"debug"`
+		Db            Db     `json:"database" yaml:"database"`
 		Name          string `json:"name" yaml:"name"`
 		Secret        string `json:"secret" yaml:"secret"`
-		HttpPort      int    `json:"http_port" yaml:"http_port"`
-		RpcPort       int    `json:"rpc_port" yaml:"rpc_port"`
 		Service       string `json:"service" yaml:"service"`
-		Db            Db     `json:"database" yaml:"database"`
-		CacheLifetime int    `json:"cache_lifetime" yaml:"cache_lifetime"`
 		ApiPrefix     string `json:"api_prefix" yaml:"api_prefix"`
 		User          string
+		HttpPort      int  `json:"http_port" yaml:"http_port"`
+		RpcPort       int  `json:"rpc_port" yaml:"rpc_port"`
+		CacheLifetime int  `json:"cache_lifetime" yaml:"cache_lifetime"`
+		Debug         bool `json:"debug" yaml:"debug"`
 	}
 )

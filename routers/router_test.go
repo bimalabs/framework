@@ -1,7 +1,6 @@
 package routers
 
 import (
-	"context"
 	"net/http"
 	"testing"
 
@@ -12,8 +11,7 @@ import (
 )
 
 func Test_Router(t *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx := t.Context()
 
 	router1 := mocks.NewRouter(t)
 	router1.On("Handle", ctx, mock.Anything, mock.Anything).Once()
@@ -31,7 +29,12 @@ func Test_Router(t *testing.T) {
 	}
 
 	endpoint := "0.0.0.0:111"
-	conn, _ := grpc.DialContext(ctx, endpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient(endpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Cleanup(func() { _ = conn.Close() })
 
 	factory.Sort()
 	factory.Handle(ctx, http.NewServeMux(), conn)

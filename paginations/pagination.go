@@ -3,7 +3,7 @@ package paginations
 import (
 	"context"
 
-	"github.com/iancoleman/strcase"
+	"github.com/bimalabs/framework/v4/utils/strcase"
 	"github.com/vcraescu/go-paginator/v2"
 )
 
@@ -13,12 +13,12 @@ type (
 	}
 
 	Pagination struct {
-		Limit   int
-		Page    int
+		Model   any
 		Filters Filter
 		Search  string
-		Model   interface{}
 		Table   string
+		Limit   int
+		Page    int
 	}
 
 	Filter map[string]string
@@ -32,9 +32,9 @@ type (
 	}
 
 	Request struct {
+		Filters Filter
 		Page    int32
 		Limit   int32
-		Filters Filter
 	}
 )
 
@@ -56,7 +56,7 @@ func (p *Pagination) Handle(request Request) {
 	}
 }
 
-func (p *Pagination) Paginate(adapter paginator.Adapter, results interface{}, total *int64) error {
+func (p *Pagination) Paginate(adapter paginator.Adapter, results any, total *int64) error {
 	pager := paginator.New(adapter, p.Limit)
 
 	pager.SetPage(p.Page)

@@ -26,15 +26,15 @@ type (
 		Handler() handlers.Handler
 		Cache() *utils.Cache
 		Paginator() *paginations.Pagination
-		Validate(v interface{}) (string, error)
+		Validate(v any) (string, error)
 	}
 
 	module struct {
-		debug     bool
 		handler   handlers.Handler
+		validator utils.Validator
 		cache     *utils.Cache
 		paginator *paginations.Pagination
-		validator utils.Validator
+		debug     bool
 	}
 
 	GormModel struct {
@@ -72,7 +72,7 @@ func (m *module) Paginator() *paginations.Pagination {
 	return m.paginator
 }
 
-func (m *module) Validate(v interface{}) (string, error) {
+func (m *module) Validate(v any) (string, error) {
 	return m.validator.Validate(v)
 }
 

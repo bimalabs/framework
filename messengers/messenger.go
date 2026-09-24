@@ -16,8 +16,8 @@ type (
 	}
 
 	Messenger struct {
-		debug  bool
 		broker Broker
+		debug  bool
 	}
 )
 

@@ -15,19 +15,19 @@ import (
 
 type (
 	ElasticsearchAdapter struct {
-		Debug      bool
-		Service    string
 		Client     *elastic.Client
 		Dispatcher *events.Dispatcher
+		Service    string
+		Debug      bool
 	}
 
 	elasticsearchPaginator struct {
 		context    context.Context
+		model      any
 		client     *elastic.Client
-		index      string
-		model      interface{}
 		pageQuery  *elastic.BoolQuery
 		totalQuery *elastic.BoolQuery
+		index      string
 	}
 )
 
@@ -63,7 +63,7 @@ func (es *ElasticsearchAdapter) CreateAdapter(ctx context.Context, paginator pag
 	return newElasticsearchPaginator(ctx, es.Client, index.String(), paginator.Model, event.Query)
 }
 
-func newElasticsearchPaginator(context context.Context, client *elastic.Client, index string, model interface{}, query *elastic.BoolQuery) paginator.Adapter {
+func newElasticsearchPaginator(context context.Context, client *elastic.Client, index string, model any, query *elastic.BoolQuery) paginator.Adapter {
 	totalQuery := query
 	paginator := elasticsearchPaginator{
 		context:    context,
@@ -86,7 +86,7 @@ func (es *elasticsearchPaginator) Nums() (int64, error) {
 	return result.TotalHits(), nil
 }
 
-func (es *elasticsearchPaginator) Slice(offset int, length int, data interface{}) error {
+func (es *elasticsearchPaginator) Slice(offset int, length int, data any) error {
 	result, err := es.client.Search().Index(es.index).IgnoreUnavailable(true).Query(es.pageQuery).From(offset).Size(length).Do(es.context)
 	if err != nil {
 		return err
@@ -96,8 +96,8 @@ func (es *elasticsearchPaginator) Slice(offset int, length int, data interface{}
 		return nil
 	}
 
-	records := make([]map[string]interface{}, 0, result.TotalHits())
-	var record map[string]interface{}
+	records := make([]map[string]any, 0, result.TotalHits())
+	var record map[string]any
 	for _, hit := range result.Hits.Hits {
 		_ = json.Unmarshal(hit.Source, &record)
 		records = append(records, record)

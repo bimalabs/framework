@@ -1,7 +1,6 @@
 package routers
 
 import (
-	"context"
 	"errors"
 	"net/http/httptest"
 	"testing"
@@ -17,11 +16,15 @@ import (
 )
 
 func Test_Gateway_Router_Success(t *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx := t.Context()
 
 	endpoint := "0.0.0.0:111"
-	conn, _ := grpc.DialContext(ctx, endpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient(endpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Cleanup(func() { _ = conn.Close() })
 
 	server := runtime.NewServeMux()
 
@@ -34,7 +37,7 @@ func Test_Gateway_Router_Success(t *testing.T) {
 	assert.Equal(t, 255, router.Priority())
 	assert.Equal(t, 1, len(router.servers))
 
-	router.Handle(context.TODO(), server, conn)
+	router.Handle(ctx, server, conn)
 
 	req := httptest.NewRequest("GET", "http://bima.framework/handle", nil)
 	w := httptest.NewRecorder()
@@ -47,11 +50,15 @@ func Test_Gateway_Router_Success(t *testing.T) {
 func Test_Gateway_Router_Error(t *testing.T) {
 	loggers.Default("test")
 
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx := t.Context()
 
 	endpoint := "0.0.0.0:111"
-	conn, _ := grpc.DialContext(ctx, endpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient(endpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Cleanup(func() { _ = conn.Close() })
 
 	server := runtime.NewServeMux()
 
@@ -64,7 +71,7 @@ func Test_Gateway_Router_Error(t *testing.T) {
 	assert.Equal(t, 255, router.Priority())
 	assert.Equal(t, 1, len(router.servers))
 
-	router.Handle(context.TODO(), server, conn)
+	router.Handle(ctx, server, conn)
 
 	req := httptest.NewRequest("GET", "http://bima.framework/handle", nil)
 	w := httptest.NewRecorder()

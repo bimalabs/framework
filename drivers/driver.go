@@ -9,8 +9,8 @@ type (
 	}
 
 	Factory struct {
-		debug   bool
 		drivers map[string]Driver
+		debug   bool
 	}
 )
 

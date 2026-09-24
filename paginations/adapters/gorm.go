@@ -14,8 +14,8 @@ import (
 
 type (
 	GormAdapter struct {
-		Debug      bool
 		Dispatcher *events.Dispatcher
+		Debug      bool
 	}
 
 	gormPaginator struct {
@@ -65,6 +65,6 @@ func (gm *gormPaginator) Nums() (int64, error) {
 	return gm.total, nil
 }
 
-func (gm *gormPaginator) Slice(offset int, length int, data interface{}) error {
+func (gm *gormPaginator) Slice(offset int, length int, data any) error {
 	return gm.query.Limit(length).Offset(offset).Find(data).Error
 }

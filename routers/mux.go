@@ -13,9 +13,9 @@ import (
 )
 
 type MuxRouter struct {
-	Debug     bool
 	ApiPrefix string
 	routes    []routes.Route
+	Debug     bool
 }
 
 func (m *MuxRouter) Register(muxs []routes.Route) {

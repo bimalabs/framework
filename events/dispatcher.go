@@ -8,7 +8,7 @@ import (
 
 type (
 	Listener interface {
-		Handle(event interface{}) interface{}
+		Handle(event any) any
 		Listen() string
 		Priority() int
 	}
@@ -33,7 +33,7 @@ func (d *Dispatcher) Register(listeners []Listener) {
 	}
 }
 
-func (d *Dispatcher) Dispatch(event string, payload interface{}) error {
+func (d *Dispatcher) Dispatch(event string, payload any) error {
 	if _, ok := d.Events[event]; !ok {
 		var message strings.Builder
 		message.WriteString("event '")

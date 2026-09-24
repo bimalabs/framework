@@ -15,8 +15,8 @@ func (p TestAdapter) Nums() (int64, error) {
 	return 10, p.err
 }
 
-func (p TestAdapter) Slice(offset, length int, data interface{}) error {
-	s := data.(*[]interface{})
+func (p TestAdapter) Slice(offset, length int, data any) error {
+	s := data.(*[]any)
 	for n := offset + 1; n < offset+length+1; n++ {
 		*s = append(*s, n)
 	}
@@ -48,15 +48,17 @@ func Test_Pagination_Handle_Request(t *testing.T) {
 	assert.Equal(t, pagination.Page, 1)
 
 	request = Request{
-		Filters: Filter{"a": "b"},
+		Filters: Filter{"firstName": "b", "HTTPServer2": "c"},
 	}
 
-	assert.Equal(t, len(pagination.Filters), 1)
+	pagination.Handle(request)
+
+	assert.Equal(t, Filter{"first_name": "b", "http_server_2": "c"}, pagination.Filters)
 }
 
 func Test_Pagination_Paginate(t *testing.T) {
 	var total int64
-	result := []interface{}{}
+	result := []any{}
 	pagination := Pagination{}
 	pagination.Handle(Request{})
 	_ = pagination.Paginate(TestAdapter{}, &result, &total)

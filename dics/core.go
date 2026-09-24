@@ -212,6 +212,11 @@ var Application = []dingo.Def{
 		Build: func(env *configs.Env) (*utils.Cache, error) {
 			return utils.NewCache(time.Duration(env.CacheLifetime) * time.Second), nil
 		},
+		Close: func(cache *utils.Cache) error {
+			cache.Close()
+
+			return nil
+		},
 		Params: dingo.Params{
 			"0": dingo.Service("bima:config"),
 		},

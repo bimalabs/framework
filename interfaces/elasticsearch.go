@@ -1,9 +1,10 @@
 package interfaces
 
 import (
+	"context"
+
 	"github.com/bimalabs/framework/v4/configs"
 	"github.com/olivere/elastic/v7"
-	"golang.org/x/net/context"
 )
 
 type Elasticsearch struct {

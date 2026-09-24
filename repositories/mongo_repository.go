@@ -27,7 +27,7 @@ func (r *MongoRepository) Transaction(f Transaction) error {
 	})
 }
 
-func (r *MongoRepository) Create(v interface{}) error {
+func (r *MongoRepository) Create(v any) error {
 	model, ok := v.(mgm.Model)
 	if !ok {
 		return errors.New("invalid model")
@@ -36,7 +36,7 @@ func (r *MongoRepository) Create(v interface{}) error {
 	return mgm.Coll(model).Create(model)
 }
 
-func (r *MongoRepository) Update(v interface{}) error {
+func (r *MongoRepository) Update(v any) error {
 	model, ok := v.(mgm.Model)
 	if !ok {
 		return errors.New("invalid model")
@@ -45,7 +45,7 @@ func (r *MongoRepository) Update(v interface{}) error {
 	return mgm.Coll(model).Update(model)
 }
 
-func (r *MongoRepository) Bind(v interface{}, id string) error {
+func (r *MongoRepository) Bind(v any, id string) error {
 	model, ok := v.(mgm.Model)
 	if !ok {
 		return errors.New("invalid model")
@@ -54,11 +54,11 @@ func (r *MongoRepository) Bind(v interface{}, id string) error {
 	return mgm.Coll(model).FindByID(id, model)
 }
 
-func (r *MongoRepository) All(v interface{}) error {
+func (r *MongoRepository) All(v any) error {
 	return mgm.CollectionByName(r.model).SimpleFind(v, bson.D{})
 }
 
-func (r *MongoRepository) FindBy(v interface{}, filters ...Filter) error {
+func (r *MongoRepository) FindBy(v any, filters ...Filter) error {
 	bFilters := make(bson.D, 0, len(filters))
 	for _, f := range filters {
 		bFilters = append(bFilters, bson.E{
@@ -70,7 +70,7 @@ func (r *MongoRepository) FindBy(v interface{}, filters ...Filter) error {
 	return mgm.CollectionByName(r.model).SimpleFind(v, bFilters)
 }
 
-func (r *MongoRepository) Delete(v interface{}, id string) error {
+func (r *MongoRepository) Delete(v any, id string) error {
 	model, ok := v.(mgm.Model)
 	if !ok {
 		return errors.New("invalid model")

@@ -22,10 +22,10 @@ type (
 	}
 
 	logger struct {
-		verbose bool
-		service string
 		data    logrus.Fields
 		Engine  *logrus.Logger
+		service string
+		verbose bool
 	}
 )
 
@@ -61,7 +61,7 @@ func (l *LoggerExtension) Register(extensions []logrus.Hook) {
 	l.Extensions = extensions
 }
 
-func (l *logger) Add(key string, value interface{}) {
+func (l *logger) Add(key string, value any) {
 	l.data[key] = value
 }
 
@@ -183,7 +183,7 @@ func (l *logger) fields(caller string, file string, line int) {
 
 	l.data["debug"] = l.verbose
 	l.data["service"] = l.service
-	l.data["trace"] = map[string]interface{}{
+	l.data["trace"] = map[string]any{
 		"caller": caller,
 		"file":   f,
 		"line":   line,

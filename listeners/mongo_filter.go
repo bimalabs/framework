@@ -12,7 +12,7 @@ import (
 type MongoDbFilter struct {
 }
 
-func (p *MongoDbFilter) Handle(event interface{}) interface{} {
+func (p *MongoDbFilter) Handle(event any) any {
 	e, ok := event.(*events.MongodbPagination)
 	if !ok {
 		return event

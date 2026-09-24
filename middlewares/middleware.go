@@ -26,9 +26,9 @@ type (
 	}
 
 	Factory struct {
-		Debug       bool
 		Service     string
 		middlewares []Middleware
+		Debug       bool
 	}
 
 	responseWrapper struct {
@@ -113,8 +113,6 @@ func (m *Factory) handle(handler http.Handler, response http.ResponseWriter, req
 	execution.WriteString(elapsed.String())
 
 	fmt.Println(execution.String())
-
-	return
 }
 
 func (m *Factory) handleDebug(handler http.Handler, response http.ResponseWriter, request *http.Request) {
@@ -138,6 +136,7 @@ func (m *Factory) handleDebug(handler http.Handler, response http.ResponseWriter
 	elapsed := time.Since(start)
 
 	var statusCode string
+
 	uri, _ := url.QueryUnescape(request.RequestURI)
 	mGet := color.New(color.BgGreen, color.FgBlack)
 	mPost := color.New(color.BgYellow, color.FgBlack)
@@ -177,6 +176,7 @@ func (m *Factory) handleDebug(handler http.Handler, response http.ResponseWriter
 	}
 
 	var stdLog strings.Builder
+
 	stdLog.WriteString("\t")
 	stdLog.WriteString(statusCode)
 	stdLog.WriteString("\t")

@@ -9,7 +9,7 @@ import (
 type GormFilter struct {
 }
 
-func (p *GormFilter) Handle(event interface{}) interface{} {
+func (p *GormFilter) Handle(event any) any {
 	e, ok := event.(*events.GormPagination)
 	if !ok {
 		return event

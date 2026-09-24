@@ -35,23 +35,23 @@ func (r *GormRepository) Transaction(f Transaction) error {
 	return result
 }
 
-func (r *GormRepository) Create(v interface{}) error {
+func (r *GormRepository) Create(v any) error {
 	return configs.Database.Create(v).Error
 }
 
-func (r *GormRepository) Update(v interface{}) error {
+func (r *GormRepository) Update(v any) error {
 	return configs.Database.Save(v).Error
 }
 
-func (r *GormRepository) Bind(v interface{}, id string) error {
+func (r *GormRepository) Bind(v any, id string) error {
 	return configs.Database.Where("id = ?", id).First(v).Error
 }
 
-func (r *GormRepository) All(v interface{}) error {
+func (r *GormRepository) All(v any) error {
 	return configs.Database.Find(v).Error
 }
 
-func (r *GormRepository) FindBy(v interface{}, filters ...Filter) error {
+func (r *GormRepository) FindBy(v any, filters ...Filter) error {
 	db := configs.Database
 	var filter strings.Builder
 	for _, f := range filters {
@@ -67,7 +67,7 @@ func (r *GormRepository) FindBy(v interface{}, filters ...Filter) error {
 	return db.Find(v).Error
 }
 
-func (r *GormRepository) Delete(v interface{}, id string) error {
+func (r *GormRepository) Delete(v any, id string) error {
 	m := v.(models.GormModel)
 	if m.IsSoftDelete() {
 		configs.Database.Save(v)
