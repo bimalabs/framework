@@ -52,7 +52,7 @@ func (p *Pagination) Handle(request Request) {
 
 	p.Filters = Filter{}
 	for k, v := range request.Filters {
-		p.Filters[strcase.ToSnake(k)] = v
+		p.Filters[toSnake(k)] = v
 	}
 }
 
@@ -70,4 +70,8 @@ func (p *Pagination) Paginate(adapter paginator.Adapter, results any, total *int
 	*total, err = pager.Nums()
 
 	return err
+}
+
+func toSnake(s string) string {
+	return strcase.ToDelimited(s, '_')
 }

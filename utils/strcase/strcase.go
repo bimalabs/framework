@@ -2,10 +2,6 @@ package strcase
 
 import "strings"
 
-func ToSnake(s string) string {
-	return ToDelimited(s, '_')
-}
-
 func ToDelimited(s string, delimiter byte) string {
 	s = strings.TrimSpace(s)
 	if s == "" {
